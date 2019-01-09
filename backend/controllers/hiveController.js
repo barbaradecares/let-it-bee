@@ -1,4 +1,4 @@
-const User = require("../models/User.js");
+const Hive = require("../models/Hive.js");
 
 let catchAsync = promise => {
   return new Promise(resolve => {
@@ -8,25 +8,25 @@ let catchAsync = promise => {
 };
 
 exports.index = async (req, res, next) => {
-  let [err, users] = await catchAsync(User.find());
+  let [err, hives] = await catchAsync(Hive.find());
   if (err) {
     res.status(500).json({
       success: false,
       error: err
     });
   } else {
-    res.status(200).json(users);
+    res.status(200).json(hives);
   }
 };
 
 exports.show = async (req, res, next) => {
-  let user = await User.findById(req.params.id);
-  res.json(user);
+  let hive = await Hive.findById(req.params.id);
+  res.json(hive);
 };
 
 exports.update = async (req, res, next) => {
-  let [err, user] = await catchAsync(
-    User.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  let [err, hive] = await catchAsync(
+    Hive.findByIdAndUpdate(req.params.id, req.body, { new: true })
   );
   if (err) {
     res.status(500).json({
@@ -34,29 +34,31 @@ exports.update = async (req, res, next) => {
       error: err
     });
   } else {
-    res.json(user);
+    res.json(hive);
   }
 };
 
 exports.delete = async (req, res, next) => {
-  let [err, user] = await catchAsync(User.findByIdAndDelete(req.params.id));
+  let [err, hive] = await catchAsync(Hive.findByIdAndDelete(req.params.id));
   if (err) {
     res.status(500).json({
       success: false,
       error: err
     });
   } else {
-    res.json(user);
+    res.json(hive);
   }
 };
 
 exports.create = async (req, res, next) => {
-  let user = new User({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password
+  let hive = new Hive({
+    userId: req.body.userId,
+    name: req.body.name,
+    location: req.body.location,
+    temperature: req.body.temperature,
+    humidity: req.body.humidity,
+    weight: req.body.weight
   });
-  await user.save();
-  res.json(user);
+  await hive.save();
+  res.json(hive);
 };
