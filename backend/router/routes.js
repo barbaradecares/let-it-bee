@@ -1,4 +1,4 @@
-const UserController = require("../controllers/userController");
+const userController = require("../controllers/userController");
 const Authentication = require("../controllers/authentication");
 
 const passport = require("../services/passport");
@@ -18,5 +18,5 @@ module.exports = app => {
     res.send({ msg: "this message is behind authentication! Yay!" });
   });
 
-  app.get("/api/users", UserController.readAll);
+  app.get("/api/users", userController.index);
 };

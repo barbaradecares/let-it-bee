@@ -1,41 +1,86 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
+import Login from "./components/login";
+import Home from "./components/home";
 import "./App.css";
+import { stat } from "fs";
+import SignUp from "./components/signup";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      users: []
+      currentUserId: localStorage.id,
+      register: false
     };
   }
 
-  componentDidMount = () => {
-    fetch("http://localhost:5000/api/users")
-      .then(response => {
-        return response.json();
+  toggleRegister = () => {
+    this.setState(state => {
+      state.register = !state.register;
+      return state;
+    });
+  };
+  login = e => {
+    e.preventDefault();
+    fetch("http://localhost:5000/api/user/signin/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        email: e.target.email.value,
+        password: e.target.password.value
       })
-      .then(data => {
-        let users = data.map(user => {
-          return (
-            <div key={user._id}>
-              <p>First Name: {user.firstName}</p>
-              <p>Last Name: {user.lastName}</p>
-              <p>Email: {user.email}</p>
-              <hr />
-            </div>
-          );
-        });
-        this.setState({ users: users });
+    })
+      .then(res => res.json())
+      .then(result => {
+        localStorage.setItem("token", result.token);
+        localStorage.setItem("id", result.id);
+        this.setState({ currentUserId: result.id });
+      });
+  };
+
+  logout = () => {
+    localStorage.clear();
+    this.setState({ currentUserId: null });
+  };
+
+  signup = e => {
+    e.preventDefault();
+    fetch("http://localhost:5000/api/user/signup/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        email: e.target.email.value,
+        password: e.target.password.value,
+        firstName: e.target.firstName.value,
+        lastName: e.target.lastName.value
+      })
+    })
+      .then(res => res.json())
+      .then(result => {
+        console.log(result);
+        localStorage.setItem("token", result.token);
+        localStorage.setItem("id", result.id);
+        this.setState({ currentUserId: result.id });
       });
   };
 
   render() {
     return (
-      <div className="App">
-        <p>All Users:</p>
-        <hr />
-        {this.state.users}
+      <div className="container">
+        {localStorage.token ? (
+          <Home userId={this.state.currentUserId} logout={this.logout} />
+        ) : this.state.register ? (
+          <SignUp signin={this.toggleRegister} signup={this.signup} />
+        ) : (
+          <Login login={this.login} signup={this.toggleRegister} />
+        )}
       </div>
     );
   }
