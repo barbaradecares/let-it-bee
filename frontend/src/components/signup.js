@@ -12,7 +12,7 @@ import LockIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-
+import { Link } from "react-router-dom";
 const styles = theme => ({
   main: {
     width: "auto",
@@ -104,15 +104,17 @@ function SignIn(props) {
           >
             Sign up
           </Button>
-          <Button
-            fullWidth
-            variant="text"
-            color="secondary"
-            className={classes.submit}
-            onClick={props.signin}
-          >
-            Sign in
-          </Button>
+          <Link to={"/login"}>
+            <Button
+              fullWidth
+              variant="text"
+              color="secondary"
+              className={classes.submit}
+              onClick={props.signin}
+            >
+              Sign in
+            </Button>
+          </Link>
         </form>
       </Paper>
     </main>

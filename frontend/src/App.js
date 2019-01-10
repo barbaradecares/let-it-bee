@@ -5,8 +5,10 @@ import Home from "./components/home";
 import "./App.css";
 import { stat } from "fs";
 import SignUp from "./components/signup";
+import { Route, Switch } from "react-router-dom";
+import Welcome from "./components/welcome";
 
-class App extends Component {
+export default class App extends Component {
   constructor() {
     super();
     this.state = {
@@ -22,6 +24,7 @@ class App extends Component {
     });
   };
   login = e => {
+    // console.log(e);
     e.preventDefault();
     fetch("http://localhost:5000/api/user/signin/", {
       method: "POST",
@@ -34,11 +37,22 @@ class App extends Component {
         password: e.target.password.value
       })
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status == 401) {
+          console.log("401");
+        } else {
+          return res.json();
+        }
+      })
       .then(result => {
-        localStorage.setItem("token", result.token);
-        localStorage.setItem("id", result.id);
-        this.setState({ currentUserId: result.id });
+        if (result) {
+          console.log("result!");
+          localStorage.setItem("token", result.token);
+          localStorage.setItem("id", result.id);
+          this.setState({ currentUserId: result.id });
+        } else {
+          alert("Wrong username or password");
+        }
       });
   };
 
@@ -64,26 +78,45 @@ class App extends Component {
     })
       .then(res => res.json())
       .then(result => {
-        console.log(result);
-        localStorage.setItem("token", result.token);
-        localStorage.setItem("id", result.id);
-        this.setState({ currentUserId: result.id });
+        if (result.error) {
+          alert(result.error);
+        } else {
+          localStorage.setItem("token", result.token);
+          localStorage.setItem("id", result.id);
+          this.setState({ currentUserId: result.id });
+        }
       });
   };
 
   render() {
+    let main;
+
     return (
-      <div className="container">
-        {localStorage.token ? (
-          <Home userId={this.state.currentUserId} logout={this.logout} />
-        ) : this.state.register ? (
-          <SignUp signin={this.toggleRegister} signup={this.signup} />
-        ) : (
-          <Login login={this.login} signup={this.toggleRegister} />
-        )}
-      </div>
+      <Switch>
+        <Route exact path="/" component={Welcome} />
+        <Route
+          exact
+          path="/login"
+          component={() => <Login login={this.login} />}
+        />
+        <Route
+          exact
+          path="/signup"
+          component={() => <SignUp signup={this.signup} />}
+        />
+      </Switch>
     );
   }
+  // }
+  //       {localStorage.token ? (
+  //         <Home userId={this.state.currentUserId} logout={this.logout} />
+  //       ) : this.state.register ? (
+  //         <SignUp signin={this.toggleRegister} signup={this.signup} />
+  //       ) : (
+  //         <Login login={this.login} signup={this.toggleRegister} />
+  //       )}
+  //     </div>
+  //   );
 }
 
-export default App;
+// export default App;
