@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const historySchema = new Schema({
+const recordSchema = new Schema({
   hiveId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Hive"
@@ -13,6 +13,9 @@ const historySchema = new Schema({
   notes: [{ type: String }]
 });
 
-const History = mongoose.model("History", historySchema);
+const Record = mongoose.model("Record", recordSchema);
 
-module.exports = History;
+Record.find({}, (err, records) => {
+  console.log(err, records);
+});
+module.exports = Record;

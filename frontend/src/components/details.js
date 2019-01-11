@@ -5,7 +5,7 @@ export default class Details extends Component {
     return (
       <div>
         <h3>Hive's details</h3>
-        <h4>Chart.js history</h4>
+        <h4>Chart.js record</h4>
       </div>
     );
   }

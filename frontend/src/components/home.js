@@ -44,19 +44,29 @@ export default class Home extends Component {
   };
 
   render() {
-    return (
-      <div>
-        <h3>user profile on left size </h3>
-        <p>id: {this.props.currentUserId} </p>
-        <p>First name:{this.state.profile.firstName}</p>
-        <p> Last name: {this.state.profile.lastName}</p>
-        <p>E-mail{this.state.profile.email}</p>
+    if (this.state.hives.length === 0) {
+      return (
+        <div>
+          <h4>no hiveeees </h4>
+          <p>create hive button</p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h3>user profile on left size </h3>
+          <p>id: {this.props.currentUserId} </p>
+          <p>First name:{this.state.profile.firstName}</p>
+          <p> Last name: {this.state.profile.lastName}</p>
+          <p>E-mail{this.state.profile.email}</p>
 
-        <h3>hive's list with edit name and location feature</h3>
-        {this.state.hives.map(hive => {
-          return <HiveCard hive={hive} />;
-        })}
-      </div>
-    );
+          <h3>hive's list with edit name and location feature</h3>
+
+          {this.state.hives.map(hive => {
+            return <HiveCard hive={hive} />;
+          })}
+        </div>
+      );
+    }
   }
 }

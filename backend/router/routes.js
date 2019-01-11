@@ -1,4 +1,4 @@
-const historyController = require("../controllers/historyController");
+const recordController = require("../controllers/recordController");
 const hiveController = require("../controllers/hiveController");
 const userController = require("../controllers/userController");
 const Authentication = require("../controllers/authentication");
@@ -21,6 +21,6 @@ module.exports = app => {
   app.get("/api/hive/:id", hiveController.show);
   //edit, delete
 
-  app.get("/api/hive/:id/histories", historyController.filteredHistories);
-  //edit (add note, which is attribute of history)
+  app.get("/api/hive/:id/records", recordController.filteredHistories);
+  //edit (add note, which is attribute of record)
 };
