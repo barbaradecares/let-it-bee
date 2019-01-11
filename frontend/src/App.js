@@ -86,6 +86,7 @@ export default class App extends Component {
           localStorage.setItem("token", result.token);
           localStorage.setItem("id", result.id);
           this.setState({ currentUserId: result.id });
+          history.push("/home");
         }
       });
   };

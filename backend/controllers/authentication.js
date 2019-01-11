@@ -28,6 +28,8 @@ exports.signup = (req, res, next) => {
 
   User.findOne({ email: email }, (err, existingUser) => {
     if (err) {
+      console.log("error in save");
+
       return next(err);
     }
     if (existingUser) {
@@ -47,7 +49,7 @@ exports.signup = (req, res, next) => {
       }
       user.password = "HIDDEN";
       token = tokenForUser(user);
-      res.json({ token: token });
+      res.json({ token: token, id: user.id });
     });
   });
 };
