@@ -62,3 +62,8 @@ exports.create = async (req, res, next) => {
   await hive.save();
   res.json(hive);
 };
+
+exports.filteredHives = async (req, res, next) => {
+  let hives = await Hive.find({ userId: req.params.id });
+  res.json(hives);
+};

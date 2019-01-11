@@ -15,4 +15,29 @@ const hiveSchema = new Schema({
 
 const Hive = mongoose.model("Hive", hiveSchema);
 
+Hive.find({}, (err, hives) => {
+  if (err) {
+    // console.log(err);
+  } else if (hives.length === 0) {
+    const hive1 = new Hive({
+      userId: "5c37cae112132f5229142589",
+      name: "My first hive",
+      location: "Anchorage",
+      currentTemperature: 70,
+      currentHumidity: 45,
+      currentWeight: 200
+    });
+    const hive2 = new Hive({
+      userId: "5c37cae112132f5229142589",
+      name: "My second hive",
+      location: "Houston",
+      currentTemperature: 20,
+      currentHumidity: 100000,
+      currentWeight: 150
+    });
+    hive1.save();
+    hive2.save();
+    console.log("Seeded DB with 2 new hives.");
+  }
+});
 module.exports = Hive;

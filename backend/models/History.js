@@ -9,6 +9,7 @@ const historySchema = new Schema({
   temperature: { type: Number },
   humidity: { type: Number },
   weight: { type: Number },
+  created_at: { type: Date },
   notes: [{ type: String }]
 });
 

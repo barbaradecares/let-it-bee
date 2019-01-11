@@ -1,4 +1,4 @@
-const Record = require("../models/Record.js");
+const History = require("../models/History.js");
 
 let catchAsync = promise => {
   return new Promise(resolve => {
@@ -8,25 +8,25 @@ let catchAsync = promise => {
 };
 
 exports.index = async (req, res, next) => {
-  let [err, records] = await catchAsync(Record.find());
+  let [err, histories] = await catchAsync(History.find());
   if (err) {
     res.status(500).json({
       success: false,
       error: err
     });
   } else {
-    res.status(200).json(records);
+    res.status(200).json(histories);
   }
 };
 
 exports.show = async (req, res, next) => {
-  let record = await Record.findById(req.params.id);
-  res.json(record);
+  let history = await History.findById(req.params.id);
+  res.json(history);
 };
 
 exports.update = async (req, res, next) => {
-  let [err, record] = await catchAsync(
-    Record.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  let [err, history] = await catchAsync(
+    History.findByIdAndUpdate(req.params.id, req.body, { new: true })
   );
   if (err) {
     res.status(500).json({
@@ -34,35 +34,41 @@ exports.update = async (req, res, next) => {
       error: err
     });
   } else {
-    res.json(record);
+    res.json(history);
   }
 };
 
 exports.delete = async (req, res, next) => {
-  let [err, record] = await catchAsync(Record.findByIdAndDelete(req.params.id));
+  let [err, history] = await catchAsync(
+    History.findByIdAndDelete(req.params.id)
+  );
   if (err) {
     res.status(500).json({
       success: false,
       error: err
     });
   } else {
-    res.json(record);
+    res.json(history);
   }
 };
 
 exports.create = async (req, res, next) => {
-  let record = new Record({
+  let history = new History({
     hiveId: req.body.hiveId,
     temperature: req.body.temperature,
     humidity: req.body.humidity,
     weight: req.body.weight,
     notes: req.body.notes
   });
-  await record.save();
-  res.json(record);
+  await history.save();
+  res.json(history);
 };
 
-exports.filteredRecords = async (req, res, next) => {
-  let records = await Record.find({ profileId: req.params.id });
-  res.json(records);
+exports.filteredHistories = async (req, res, next) => {
+  let histories = await History.find({ hiveId: req.params.id });
+  res.json(histories);
+};
+
+exports.lastHistory = async (req, res, next) => {
+  ///find a way of selecting last history added
 };

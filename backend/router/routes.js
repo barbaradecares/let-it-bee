@@ -1,3 +1,5 @@
+const historyController = require("../controllers/historyController");
+const hiveController = require("../controllers/hiveController");
 const userController = require("../controllers/userController");
 const Authentication = require("../controllers/authentication");
 
@@ -10,13 +12,15 @@ module.exports = app => {
   app.post("/api/user/signup", Authentication.signup);
   app.post("/api/user/signin", requireSignin, Authentication.signin);
 
-  app.get("/api/test-noauth", (req, res) => {
-    res.send({ msg: "oh herrrrrrro!" });
-  });
-
-  app.get("/api/test", requireAuth, (req, res) => {
-    res.send({ msg: "this message is behind authentication! Yay!" });
-  });
-
   app.get("/api/users", userController.index);
+  app.get("/api/user/:id", userController.show);
+  //edit, delete
+
+  app.get("/api/user/:id/hives", hiveController.filteredHives);
+  app.get("/api/user/:id/hive/new", hiveController.create);
+  app.get("/api/hive/:id", hiveController.show);
+  //edit, delete
+
+  app.get("/api/hive/:id/histories", historyController.filteredHistories);
+  //edit (add note, which is attribute of history)
 };
