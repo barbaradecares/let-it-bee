@@ -5,8 +5,9 @@ import Home from "./components/home";
 import "./App.css";
 import { stat } from "fs";
 import SignUp from "./components/signup";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Welcome from "./components/welcome";
+import history from "./history";
 
 export default class App extends Component {
   constructor() {
@@ -45,10 +46,11 @@ export default class App extends Component {
         }
       })
       .then(result => {
+        console.log(result);
         if (result) {
-          console.log("result!");
           localStorage.setItem("token", result.token);
           localStorage.setItem("id", result.id);
+          history.push("/home");
           this.setState({ currentUserId: result.id });
         } else {
           alert("Wrong username or password");
@@ -89,8 +91,6 @@ export default class App extends Component {
   };
 
   render() {
-    let main;
-
     return (
       <Switch>
         <Route exact path="/" component={Welcome} />
@@ -103,6 +103,11 @@ export default class App extends Component {
           exact
           path="/signup"
           component={() => <SignUp signup={this.signup} />}
+        />
+        <Route
+          exact
+          path="/home"
+          component={() => <Home currentUserId={this.state.currentUserId} />}
         />
       </Switch>
     );

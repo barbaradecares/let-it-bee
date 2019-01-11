@@ -38,7 +38,7 @@ const User = mongoose.model("User", userSchema);
 
 User.find({}, (err, users) => {
   if (err) {
-    console.log(err);
+    // console.log(err);
   } else if (users.length === 0) {
     const user1 = new User({
       email: "test@example.com",

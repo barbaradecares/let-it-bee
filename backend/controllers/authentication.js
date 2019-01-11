@@ -8,8 +8,12 @@ const tokenForUser = user => {
 };
 
 exports.signin = (req, res, next) => {
-  const token = tokenForUser(req.user);
-  res.json({ token: token });
+  if (req.user) {
+    const token = tokenForUser(req.user);
+    res.json({ token: token, id: req.user.id });
+  } else {
+    res.json({ error: res.error });
+  }
 };
 
 exports.signup = (req, res, next) => {
