@@ -21,6 +21,7 @@ module.exports = app => {
   app.get("/api/hive/:id", hiveController.show);
   //edit, delete
 
-  app.get("/api/hive/:id/records", recordController.filteredHistories);
+  app.get("/api/hive/:id/records", recordController.filteredRecords);
   //edit (add note, which is attribute of record)
+  app.post("/api/records/", recordController.create);
 };

@@ -16,6 +16,6 @@ const recordSchema = new Schema({
 const Record = mongoose.model("Record", recordSchema);
 
 Record.find({}, (err, records) => {
-  console.log(err, records);
+  // console.log(err, records);
 });
 module.exports = Record;

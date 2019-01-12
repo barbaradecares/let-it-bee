@@ -1,4 +1,3 @@
-// let Record = require("../models/Record");
 var request = require("request");
 var http = require("http");
 var os = require("os");
@@ -11,23 +10,32 @@ var board = new five.Board({
 });
 
 var Express = require("express");
-var SocketIO = require("socket.io");
+var socket = require("socket.io");
 
-var application = new Express();
-var server = new http.Server(application);
-var io = new SocketIO(server);
+var app = new Express();
+var server = new http.Server(app);
+var io = new socket(server);
+io.on("connection", socket => {
+  //   clients.add(socket);
+  //   socket.on("disconnect", () => clients.delete(socket));
+  console.log("test!");
+});
 
-application.use(Express.static(path.join(__dirname, "/app")));
-application.use("/vendor", Express.static(__dirname + "/node_modules/"));
+app.use(Express.static(path.join(__dirname, "/app")));
+app.use("/vendor", Express.static(__dirname + "/node_modules/"));
 
 board.on("ready", () => {
+  //Attempt of connection
+  //   var clients = new Set();
+  var updated = Date.now() - 5000;
+
   var lcd = new five.LCD({
     pins: ["a2", "a3", "a4", "a5", "a6", "a7"]
   });
 
   var monitor = new five.Multi({
     controller: "BME280",
-    freq: 5000
+    freq: 15000
   });
 
   const saveToDb = postData => {
@@ -36,11 +44,11 @@ board.on("ready", () => {
       body: JSON.stringify(postData),
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "app/json"
       }
     };
     request(clientServerOptions, function(error, response) {
-      console.log(error, response);
+      //   console.log(error, response);
       return;
     });
   };
@@ -51,29 +59,16 @@ board.on("ready", () => {
     console.log("--------------------------------------");
     console.log(" Humidity     : ", this.hygrometer.relativeHumidity);
     console.log("--------------------------------------");
-    // application.post("http://localhost:5000/api/records/", (req, res) => {
-    //   res.send({
 
     let recordData = {
       temperature: this.thermometer.fahrenheit,
       humidity: this.hygrometer.relativeHumidity,
-      hiveId: "5c3811a746b06c63be792b89"
+      hiveId: "5c3811a746b06c63be792b89",
+      created_at: Date.now
     };
-    //   });
-    // });
+
     saveToDb(recordData);
   });
-
-  var clients = new Set();
-  var updated = Date.now() - 5000;
-
-  //   io.on("connection", socket => {
-  //     clients.add(socket);
-  //     console.log("New client connected");
-  //     socket.on("disconnect", () => {
-  //       console.log("Client disconnected");
-  //     });
-  //   });
 
   monitor.on("change", function() {
     lcd.cursor(0, 0).print(`Temp: ${monitor.thermometer.fahrenheit}`);
@@ -91,19 +86,7 @@ board.on("ready", () => {
     }
   });
 
-  //   io.on("connection", socket => {
-  // Allow up to 5 monitor sockets to
-  // connect to this enviro-monitor server
-  // if (clients.size < 5) {
-  //   clients.add(socket);
-  //   // When the socket disconnects, remove
-  //   // it from the recipient set.
-  // }
-
-  // socket.on("disconnect", () => clients.delete(socket));
-  //   });
-
-  var port = 8000;
+  var port = 3000;
   server.listen(port, () => {
     console.log(`http://${os.networkInterfaces().wlan0[0].address}:${port}`);
   });
@@ -111,11 +94,4 @@ board.on("ready", () => {
   process.on("SIGINT", () => {
     server.close();
   });
-
-  //   monitor.on("change", function() {
-  //     console.log("  Temperature  : ", this.thermometer.fahrenheit);
-  //     console.log("--------------------------------------");
-  //     console.log(" Humidity     : ", this.hygrometer.relativeHumidity);
-  //     console.log("--------------------------------------");
-  //   });
 });

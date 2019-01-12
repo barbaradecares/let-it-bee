@@ -51,7 +51,6 @@ exports.delete = async (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-  console.log("controller");
   let user = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,

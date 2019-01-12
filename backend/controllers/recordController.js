@@ -62,7 +62,7 @@ exports.create = async (req, res, next) => {
   res.json(record);
 };
 
-exports.filteredHistories = async (req, res, next) => {
+exports.filteredRecords = async (req, res, next) => {
   let records = await Record.find({ hiveId: req.params.id });
   res.json(records);
 };
