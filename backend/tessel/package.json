@@ -16,6 +16,8 @@
     "express": "^4.16.4",
     "johnny-five": "^1.0.0",
     "justgage": "^1.2.2",
+    "mongoose": "^5.4.3",
+    "request": "^2.88.0",
     "socket.io": "^1.4.8",
     "tessel-io": "^1.2.0"
   }
