@@ -49,7 +49,7 @@ export default class Home extends Component {
       return (
         <div>
           <h4>no hiveeees </h4>
-          <button onClick={() => history.push("/add-hive")}>Add hive</button>
+          <button onClick={() => history.push("/hive/new")}>Add hive</button>
         </div>
       );
     } else {
@@ -64,7 +64,17 @@ export default class Home extends Component {
           <h3>hive's list with edit name and location feature</h3>
 
           {this.state.hives.map(hive => {
-            return <HiveCard hive={hive} />;
+            return (
+              <div>
+                <HiveCard
+                  hive={hive}
+                  redirectToEdit={this.props.redirectToEdit}
+                />
+                <button onClick={() => history.push("/hive/new")}>
+                  Add hive
+                </button>
+              </div>
+            );
           })}
         </div>
       );

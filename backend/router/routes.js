@@ -19,6 +19,7 @@ module.exports = app => {
   app.get("/api/user/:id/hives", hiveController.filteredHives);
   app.post("/api/hive/new", hiveController.create);
   app.get("/api/hive/:id", hiveController.show);
+  app.patch("/api/hive/:id/edit", hiveController.update);
   //edit, delete
 
   app.get("/api/hive/:id/records", recordController.filteredRecords);

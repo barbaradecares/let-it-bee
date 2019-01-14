@@ -9,6 +9,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Welcome from "./components/welcome";
 import history from "./history";
 import AddHive from "./components/addHive";
+import EditHive from "./components/editHive";
 
 export default class App extends Component {
   constructor() {
@@ -18,6 +19,11 @@ export default class App extends Component {
       register: false
     };
   }
+
+  redirectToEdit = hive => {
+    this.setState({ currentHive: hive });
+    history.push("/hive/edit");
+  };
 
   toggleRegister = () => {
     this.setState(state => {
@@ -87,7 +93,7 @@ export default class App extends Component {
           localStorage.setItem("token", result.token);
           localStorage.setItem("id", result.id);
           this.setState({ currentUserId: result.id });
-          history.push("/add-hive");
+          history.push("/hive/new");
         }
       });
   };
@@ -109,26 +115,24 @@ export default class App extends Component {
         <Route
           exact
           path="/home"
-          component={() => <Home currentUserId={this.state.currentUserId} />}
+          component={() => (
+            <Home
+              currentUserId={this.state.currentUserId}
+              redirectToEdit={this.redirectToEdit}
+            />
+          )}
         />
         <Route
           exact
-          path="/add-hive"
+          path="/hive/new"
           component={() => <AddHive currentUserId={this.state.currentUserId} />}
+        />
+        <Route
+          exact
+          patch="/hive/edit"
+          component={() => <EditHive currentHive={this.state.currentHive} />}
         />
       </Switch>
     );
   }
-  // }
-  //       {localStorage.token ? (
-  //         <Home userId={this.state.currentUserId} logout={this.logout} />
-  //       ) : this.state.register ? (
-  //         <SignUp signin={this.toggleRegister} signup={this.signup} />
-  //       ) : (
-  //         <Login login={this.login} signup={this.toggleRegister} />
-  //       )}
-  //     </div>
-  //   );
 }
-
-// export default App;
