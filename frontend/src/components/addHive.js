@@ -1,44 +1,84 @@
 import React, { Component } from "react";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng
+} from "react-places-autocomplete";
 
-export default class AddHive extends Component {
+export default class addHive extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { address: "", lat: "", lng: "" };
+  }
+
+  handleChange = address => {
+    this.setState({ address });
+  };
+
+  handleSelect = address => {
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => {
+        this.setState({ lat: latLng.lat, lng: latLng.lng });
+        console.log("Success", latLng);
+      })
+      .catch(error => console.error("Error", error));
+  };
+
+  createHive = e => {
+    e.preventDefault();
+    console.log(this.state);
+  };
   render() {
     return (
       <div>
-        <div>
-          <h3>Add hive form</h3>
-          <h4> with instructions for setting up</h4>
-          <form method="get" className="form">
-            <ul className="list-reset">
-              <li className="form-field">
-                <label htmlFor="city-search">Hive's Name</label>
+        <form>
+          Hive's name: <input id="name" />
+          <PlacesAutocomplete
+            value={this.state.address}
+            onChange={this.handleChange}
+            onSelect={this.handleSelect}
+          >
+            {({
+              getInputProps,
+              suggestions,
+              getSuggestionItemProps,
+              loading
+            }) => (
+              <div>
+                Hive's location{" "}
                 <input
-                  type="text"
-                  id="hives-name"
-                  placeholder="e.g. My first hive"
+                  {...getInputProps({
+                    placeholder: "Search Places ...",
+                    className: "location-search-input"
+                  })}
                 />
-              </li>
-              <li className="form-field">
-                <label htmlFor="city-search">Hive's location</label>
-                <input
-                  type="text"
-                  id="city-search"
-                  placeholder="e.g. Houston, TX"
-                />
-              </li>
-              <li className="form-field">
-                <input type="checkbox" id="celsius" />
-                <label htmlFor="celsius">Report Celsius</label>
-              </li>
-            </ul>
-            <button>Get Weather</button>
-          </form>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js">
-            &lt;script
-            src="https://cdnjs.cloudflare.com/ajax/libs/skycons/1396634940/skycons.min.js"
-            /&gt; &lt;script type="text/javascript" src="./config.js" /&gt;
-            &lt;script src="./searchBox.js" /&gt;
-          </script>
-        </div>
+                <div className="autocomplete-dropdown-container">
+                  {loading && <div>Loading...</div>}
+                  {suggestions.map(suggestion => {
+                    const className = suggestion.active
+                      ? "suggestion-item--active"
+                      : "suggestion-item";
+                    // inline style for demonstration purpose
+                    const style = suggestion.active
+                      ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                      : { backgroundColor: "#ffffff", cursor: "pointer" };
+                    return (
+                      <div
+                        {...getSuggestionItemProps(suggestion, {
+                          className,
+                          style
+                        })}
+                      >
+                        <span>{suggestion.description}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </PlacesAutocomplete>
+          <button onClick={this.createHive}>Add hive</button>
+        </form>
       </div>
     );
   }

@@ -56,7 +56,8 @@ exports.create = async (req, res, next) => {
     temperature: req.body.temperature,
     humidity: req.body.humidity,
     weight: req.body.weight,
-    notes: req.body.notes
+    notes: req.body.notes,
+    created_at: req.body.created_at
   });
   await record.save();
   res.json(record);
