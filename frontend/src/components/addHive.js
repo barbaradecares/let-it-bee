@@ -3,15 +3,17 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
+import history from "../history";
+import Home from "./home";
 
 export default class addHive extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { address: "", lat: "", lng: "" };
+    this.state = { address: "", lat: "", lng: "", name: "" };
   }
 
   handleChange = address => {
-    this.setState({ address });
+    this.setState({ address: address });
   };
 
   handleSelect = address => {
@@ -24,15 +26,45 @@ export default class addHive extends React.Component {
       .catch(error => console.error("Error", error));
   };
 
+  handleNameChange = name => {
+    this.setState({ name: name });
+  };
+
   createHive = e => {
     e.preventDefault();
-    console.log(this.state);
+
+    fetch("http://localhost:5000/api/hive/new", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        userId: this.props.currentUserId,
+        name: this.state.name,
+        lat: this.state.lat,
+        lng: this.state.lng,
+        location: this.state.address
+      })
+    })
+      .then(res => res.json())
+      .then(result => {
+        if (result.error) {
+          alert(result.error);
+        } else {
+          history.push("/home");
+        }
+      });
   };
   render() {
     return (
       <div>
         <form>
-          Hive's name: <input id="name" />
+          Hive's name:{" "}
+          <input
+            id="name"
+            onChange={e => this.handleNameChange(e.target.value)}
+          />
           <PlacesAutocomplete
             value={this.state.address}
             onChange={this.handleChange}

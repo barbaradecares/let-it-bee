@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import HiveCard from "./hiveCard";
+import history from "../history";
 export default class Home extends Component {
   constructor() {
     super();
@@ -48,7 +49,7 @@ export default class Home extends Component {
       return (
         <div>
           <h4>no hiveeees </h4>
-          <p>create hive button</p>
+          <button onClick={() => history.push("/add-hive")}>Add hive</button>
         </div>
       );
     } else {

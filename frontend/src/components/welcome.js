@@ -10,7 +10,6 @@ export default class Welcome extends Component {
         <h4>sign in / sign up buttons</h4>
         <Link to={"/login"}>Log in</Link>
         <Link to={"/signup"}>Sign up</Link>
-        <AddHive />
       </div>
     );
   }

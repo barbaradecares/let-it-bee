@@ -8,8 +8,8 @@ const hiveSchema = new Schema({
   },
   name: { type: String },
   location: { type: String },
-  lat: { type: String },
-  lng: { type: String },
+  lat: { type: Number },
+  lng: { type: Number },
   currentTemperature: { type: Number },
   currentHumidity: { type: Number },
   currentWeight: { type: Number }

@@ -8,6 +8,7 @@ import SignUp from "./components/signup";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Welcome from "./components/welcome";
 import history from "./history";
+import AddHive from "./components/addHive";
 
 export default class App extends Component {
   constructor() {
@@ -86,7 +87,7 @@ export default class App extends Component {
           localStorage.setItem("token", result.token);
           localStorage.setItem("id", result.id);
           this.setState({ currentUserId: result.id });
-          history.push("/home");
+          history.push("/add-hive");
         }
       });
   };
@@ -109,6 +110,11 @@ export default class App extends Component {
           exact
           path="/home"
           component={() => <Home currentUserId={this.state.currentUserId} />}
+        />
+        <Route
+          exact
+          path="/add-hive"
+          component={() => <AddHive currentUserId={this.state.currentUserId} />}
         />
       </Switch>
     );

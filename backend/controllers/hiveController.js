@@ -55,9 +55,11 @@ exports.create = async (req, res, next) => {
     userId: req.body.userId,
     name: req.body.name,
     location: req.body.location,
-    temperature: req.body.temperature,
-    humidity: req.body.humidity,
-    weight: req.body.weight
+    lat: req.body.lat,
+    lng: req.body.lng,
+    currentTemperature: req.body.temperature,
+    currentHumidity: req.body.humidity,
+    currentWeight: req.body.weight
   });
   await hive.save();
   res.json(hive);
