@@ -53,6 +53,7 @@ exports.delete = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   let record = new Record({
     hiveId: req.body.hiveId,
+    weather: req.body.weather,
     temperature: req.body.temperature,
     humidity: req.body.humidity,
     weight: req.body.weight,

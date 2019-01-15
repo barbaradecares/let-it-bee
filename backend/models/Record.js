@@ -10,7 +10,8 @@ const recordSchema = new Schema({
   humidity: { type: Number },
   weight: { type: Number },
   created_at: { type: Date },
-  notes: { type: String }
+  notes: { type: String },
+  weather: { type: Object }
 });
 
 const Record = mongoose.model("Record", recordSchema);

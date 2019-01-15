@@ -62,15 +62,21 @@ const fetchWeather = () => {
       "Content-Type": "application/json"
     }
   };
-  request(clientServerOptions, function(error, response) {
-    // console.log(error, response);
-    let data = JSON.parse(response.body);
-    weather = {
-      temp: data.currently.temperature,
-      summary: data.currently.summary
-    };
-    console.log(weather);
-    return;
+
+  return new Promise((resolve, reject) => {
+    request(clientServerOptions, function(err, response) {
+      // console.log(error, response);
+      let data = JSON.parse(response.body);
+      weather = {
+        temp: data.currently.temperature,
+        summary: data.currently.summary
+      };
+      console.log(weather);
+      if (err) {
+        reject(err);
+      }
+      resolve();
+    });
   });
 };
 
@@ -109,12 +115,13 @@ board.on("ready", () => {
     let recordData = {
       temperature: this.thermometer.fahrenheit,
       humidity: this.hygrometer.relativeHumidity,
-      hiveId: "5c3811a746b06c63be792b89",
+      hiveId: hiveId,
+      weather: weather,
       created_at: Date.now()
     };
-    saveToDb(recordData);
+    // saveToDb(recordData);
 
-    fetchHiveInfo().then(() => fetchWeather());
+    fetchHiveInfo().then(() => fetchWeather().then(() => saveToDb(recordData)));
     // fetchWeather();
   });
 
