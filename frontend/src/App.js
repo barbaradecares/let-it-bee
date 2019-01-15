@@ -10,20 +10,16 @@ import Welcome from "./components/welcome";
 import history from "./history";
 import AddHive from "./components/addHive";
 import EditHive from "./components/editHive";
+import EditProfile from "./components/editProfile";
 
 export default class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       currentUserId: localStorage.id,
       register: false
     };
   }
-
-  redirectToEdit = hive => {
-    this.setState({ currentHive: hive });
-    history.push("/hive/edit");
-  };
 
   toggleRegister = () => {
     this.setState(state => {
@@ -129,8 +125,13 @@ export default class App extends Component {
         />
         <Route
           exact
-          patch="/hive/edit"
-          component={() => <EditHive currentHive={this.state.currentHive} />}
+          path="/hive/:id/edit"
+          component={props => <EditHive {...props} />}
+        />
+        <Route
+          exact
+          path="/user/:id/edit"
+          component={props => <EditProfile {...props} />}
         />
       </Switch>
     );

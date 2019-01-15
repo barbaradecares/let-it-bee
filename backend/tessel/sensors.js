@@ -44,6 +44,8 @@ board.on("ready", () => {
     });
   };
 
+  // const getWeather =
+
   monitor.on("data", function() {
     ///Adjust monitor freq and post a Record instance in this method
     console.log("  Temperature  : ", this.thermometer.fahrenheit);
@@ -107,11 +109,4 @@ board.on("ready", () => {
   process.on("SIGINT", () => {
     server.close();
   });
-
-  //   monitor.on("change", function() {
-  //     console.log("  Temperature  : ", this.thermometer.fahrenheit);
-  //     console.log("--------------------------------------");
-  //     console.log(" Humidity     : ", this.hygrometer.relativeHumidity);
-  //     console.log("--------------------------------------");
-  //   });
 });

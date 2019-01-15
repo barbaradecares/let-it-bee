@@ -9,16 +9,25 @@ import Home from "./home";
 export default class editHive extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      address: this.props.currentHive.location,
-      lat: this.props.currentHive.latitude,
-      lng: this.props.currentHive.longitude,
-      name: this.props.currentHive.name
-    };
+    this.state = {};
+  }
+  componentDidMount() {
+    fetch(`http://localhost:5000/api/hive/${this.props.match.params.id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
+      .then(resp => resp.json())
+      .then(hive =>
+        this.setState(state => {
+          state = hive;
+          return state;
+        })
+      );
   }
 
   handleChange = address => {
-    this.setState({ address: address });
+    this.setState({ location: address });
   };
 
   handleSelect = address => {
@@ -37,20 +46,14 @@ export default class editHive extends React.Component {
 
   editHive = e => {
     e.preventDefault();
-
-    fetch(`{http://localhost:5000/api/hive/${this.props.currentHiveId}/edit}`, {
+    let hive = this.state;
+    fetch(`http://localhost:5000/api/hive/${this.props.match.params.id}/edit`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json"
       },
-      body: JSON.stringify({
-        userId: this.props.currentUserId,
-        name: this.state.name,
-        lat: this.state.lat,
-        lng: this.state.lng,
-        location: this.state.address
-      })
+      body: JSON.stringify(hive)
     })
       .then(res => res.json())
       .then(result => {
@@ -61,8 +64,8 @@ export default class editHive extends React.Component {
         }
       });
   };
+
   render() {
-    console.log(this.props.currentHive);
     return (
       <div>
         <form>
@@ -77,7 +80,7 @@ export default class editHive extends React.Component {
             value={this.state.address}
             onChange={this.handleChange}
             onSelect={this.handleSelect}
-            value={this.state.address}
+            value={this.state.location}
           >
             {({
               getInputProps,

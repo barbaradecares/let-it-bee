@@ -14,15 +14,17 @@ module.exports = app => {
 
   app.get("/api/users", userController.index);
   app.get("/api/user/:id", userController.show);
-  //edit, delete
+  app.patch("/api/user/:id/edit", userController.update);
+  // delete
 
   app.get("/api/user/:id/hives", hiveController.filteredHives);
   app.post("/api/hive/new", hiveController.create);
   app.get("/api/hive/:id", hiveController.show);
   app.patch("/api/hive/:id/edit", hiveController.update);
-  //edit, delete
+  // delete path
 
   app.get("/api/hive/:id/records", recordController.filteredRecords);
-  //edit (add note, which is attribute of record)
+
   app.post("/api/records/", recordController.create);
+  //use post request to add a record with note
 };

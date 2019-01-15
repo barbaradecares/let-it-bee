@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import HiveCard from "./hiveCard";
 import history from "../history";
+import { Link } from "react-router-dom";
 export default class Home extends Component {
   constructor() {
     super();
@@ -60,22 +61,21 @@ export default class Home extends Component {
           <p>First name:{this.state.profile.firstName}</p>
           <p> Last name: {this.state.profile.lastName}</p>
           <p>E-mail{this.state.profile.email}</p>
-
-          <h3>hive's list with edit name and location feature</h3>
+          <button
+            onClick={() => history.push(`user/${this.state.profile._id}/edit`)}
+          >
+            Edit profile
+          </button>
+          <h3>hive's list</h3>
 
           {this.state.hives.map(hive => {
             return (
               <div>
-                <HiveCard
-                  hive={hive}
-                  redirectToEdit={this.props.redirectToEdit}
-                />
-                <button onClick={() => history.push("/hive/new")}>
-                  Add hive
-                </button>
+                <HiveCard hive={hive} />
               </div>
             );
           })}
+          <button onClick={() => history.push("/hive/new")}>Add hive</button>
         </div>
       );
     }
