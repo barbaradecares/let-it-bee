@@ -15,9 +15,64 @@ var SocketIO = require("socket.io");
 var application = new Express();
 var server = new http.Server(application);
 var io = new SocketIO(server);
+const util = require("util");
 
 application.use(Express.static(path.join(__dirname, "/app")));
 application.use("/vendor", Express.static(__dirname + "/node_modules/"));
+
+let hiveId = "5c3d06ea06f4306720f48816";
+let hive;
+let weather = {};
+
+const fetchHiveInfo = () => {
+  var clientServerOptions = {
+    uri: `http://10.185.5.111:5000/api/hive/${hiveId}`, //check ip address ipconfig getifaddr en0
+    body: JSON.stringify({}),
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  return new Promise((resolve, reject) => {
+    request(clientServerOptions, function(err, response) {
+      // console.log(error, response);
+      hive = JSON.parse(response.body);
+
+      if (err) {
+        reject(err);
+      }
+      resolve();
+    });
+  });
+};
+
+const fetchWeather = () => {
+  var apiKey = "88440f3a1e59807fd6f14245a2e3346c",
+    url = "https://api.darksky.net/forecast/",
+    lati = hive.lat,
+    // 29.7604267,
+    longi = hive.lng,
+    api_call = url + apiKey + "/" + lati + "," + longi;
+
+  var clientServerOptions = {
+    uri: api_call,
+    body: JSON.stringify({}),
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  request(clientServerOptions, function(error, response) {
+    // console.log(error, response);
+    let data = JSON.parse(response.body);
+    weather = {
+      temp: data.currently.temperature,
+      summary: data.currently.summary
+    };
+    console.log(weather);
+    return;
+  });
+};
 
 board.on("ready", () => {
   var lcd = new five.LCD({
@@ -31,7 +86,7 @@ board.on("ready", () => {
 
   const saveToDb = postData => {
     var clientServerOptions = {
-      uri: "http://10.185.0.200:5000/api/records/", //check ip address ipconfig getifaddr en0
+      uri: "http://10.185.5.111:5000/api/records/", //check ip address ipconfig getifaddr en0
       body: JSON.stringify(postData),
       method: "POST",
       headers: {
@@ -39,12 +94,10 @@ board.on("ready", () => {
       }
     };
     request(clientServerOptions, function(error, response) {
-      console.log(error, response);
+      // console.log(error, response);
       return;
     });
   };
-
-  // const getWeather =
 
   monitor.on("data", function() {
     ///Adjust monitor freq and post a Record instance in this method
@@ -60,6 +113,9 @@ board.on("ready", () => {
       created_at: Date.now()
     };
     saveToDb(recordData);
+
+    fetchHiveInfo().then(() => fetchWeather());
+    // fetchWeather();
   });
 
   var clients = new Set();
