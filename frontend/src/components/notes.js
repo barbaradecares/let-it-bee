@@ -1,15 +1,18 @@
 import React, { Component } from "react";
+import history from "../history";
 
 export default class Notes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      recordsWithNotes: []
+      recordsWithNotes: [],
+      last: {},
+      sorted: []
     };
   }
 
   fetchNotes = () => {
-    fetch(
+    return fetch(
       `http://localhost:5000/api/hive/${this.props.match.params.id}/records`
     )
       .then(resp => resp.json())
@@ -41,7 +44,7 @@ export default class Notes extends Component {
   };
   componentDidMount() {
     this.fetchHive();
-    this.fetchNotes();
+    this.fetchNotes().then(() => this.getSortedAndLast());
   }
 
   handleChange = e => {
@@ -50,19 +53,42 @@ export default class Notes extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
-    ///fix prevent default + patch
+    let newRecord = this.state.last;
+    newRecord.notes = this.state.notes;
+    newRecord.created_at = Date.now();
+    console.log(newRecord);
+    fetch("http://localhost:5000/api/records", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(newRecord)
+    })
+      .then(res => res.json())
+      .then(result => {
+        if (result.error) {
+          alert(result.error);
+        } else {
+          history.push(`/hive/${this.state.hive._id}/notes`);
+        }
+      });
   };
 
-  render() {
+  getSortedAndLast = () => {
     function compare(a, b) {
       if (a.created_at < b.created_at) return -1;
       if (a.created_at > b.created_at) return 1;
       return 0;
     }
-
     let sorted = this.state.recordsWithNotes.sort(compare);
 
+    let last = sorted[sorted.length - 1];
+
+    this.setState({ sorted, last });
+  };
+
+  render() {
     return (
       <div>
         <h3>Notes page</h3>
@@ -76,11 +102,11 @@ export default class Notes extends Component {
               onChange={e => this.handleChange(e)}
               value={this.state.notes}
             />
-            <button onSubmit={e => this.handleSubmit(e)}>Submit</button>
+            <button onClick={e => this.handleSubmit(e)}>Submit</button>
           </form>
         </div>
         <div id="notes">
-          {sorted.map(record => {
+          {this.state.recordsWithNotes.map(record => {
             return <p>{record.notes}</p>;
           })}
         </div>

@@ -24,7 +24,6 @@ module.exports = app => {
   // delete path
 
   app.get("/api/hive/:id/records", recordController.filteredRecords);
-
   app.post("/api/records/", recordController.create);
   //use post request to add a record with note
 };
