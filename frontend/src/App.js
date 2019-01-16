@@ -11,7 +11,7 @@ import history from "./history";
 import AddHive from "./components/addHive";
 import EditHive from "./components/editHive";
 import EditProfile from "./components/editProfile";
-
+import Notes from "./components/notes";
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -132,6 +132,11 @@ export default class App extends Component {
           exact
           path="/user/:id/edit"
           component={props => <EditProfile {...props} />}
+        />
+        <Route
+          exact
+          path="/hive/:id/notes"
+          component={props => <Notes {...props} />}
         />
       </Switch>
     );
