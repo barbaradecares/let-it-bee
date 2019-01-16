@@ -12,6 +12,13 @@ import AddHive from "./components/addHive";
 import EditHive from "./components/editHive";
 import EditProfile from "./components/editProfile";
 import Notes from "./components/notes";
+import io from "socket.io-client";
+// const socket = io("http://10.185.0.57:8000"); //check for ip changes
+
+// socket.on("report", data => {
+//   console.log(data);
+// });
+
 export default class App extends Component {
   constructor(props) {
     super(props);

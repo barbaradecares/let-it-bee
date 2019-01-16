@@ -20,13 +20,14 @@ const util = require("util");
 application.use(Express.static(path.join(__dirname, "/app")));
 application.use("/vendor", Express.static(__dirname + "/node_modules/"));
 
+const currentIP = "10.185.7.101";
 let hiveId = "5c3d06ea06f4306720f48816";
 let hive;
 let weather = {};
 
 const fetchHiveInfo = () => {
   var clientServerOptions = {
-    uri: `http://10.185.5.111:5000/api/hive/${hiveId}`, //check ip address ipconfig getifaddr en0
+    uri: `http://${currentIP}:5000/api/hive/${hiveId}`, //check ip address ipconfig getifaddr en0
     body: JSON.stringify({}),
     method: "GET",
     headers: {
@@ -35,7 +36,7 @@ const fetchHiveInfo = () => {
   };
   return new Promise((resolve, reject) => {
     request(clientServerOptions, function(err, response) {
-      // console.log(error, response);
+      // console.log(err, response);
       hive = JSON.parse(response.body);
 
       if (err) {
@@ -50,7 +51,6 @@ const fetchWeather = () => {
   var apiKey = "88440f3a1e59807fd6f14245a2e3346c",
     url = "https://api.darksky.net/forecast/",
     lati = hive.lat,
-    // 29.7604267,
     longi = hive.lng,
     api_call = url + apiKey + "/" + lati + "," + longi;
 
@@ -71,7 +71,7 @@ const fetchWeather = () => {
         temp: data.currently.temperature,
         summary: data.currently.summary
       };
-      console.log(weather);
+      // console.log(weather);
       if (err) {
         reject(err);
       }
@@ -92,7 +92,7 @@ board.on("ready", () => {
 
   const saveToDb = postData => {
     var clientServerOptions = {
-      uri: "http://10.185.5.111:5000/api/records/", //check ip address ipconfig getifaddr en0
+      uri: `http://${currentIP}:5000/api/records/`, //check ip address ipconfig getifaddr en0
       body: JSON.stringify(postData),
       method: "POST",
       headers: {
@@ -101,6 +101,7 @@ board.on("ready", () => {
     };
     request(clientServerOptions, function(error, response) {
       // console.log(error, response);
+      console.log("posted!");
       return;
     });
   };
@@ -125,44 +126,22 @@ board.on("ready", () => {
     // fetchWeather();
   });
 
-  var clients = new Set();
   var updated = Date.now() - 5000;
 
-  //   io.on("connection", socket => {
-  //     clients.add(socket);
-  //     console.log("New client connected");
-  //     socket.on("disconnect", () => {
-  //       console.log("Client disconnected");
-  //     });
-  //   });
-
-  monitor.on("change", function() {
-    lcd.cursor(0, 0).print(`Temp: ${monitor.thermometer.fahrenheit}`);
-    lcd.cursor(1, 0).print(`Hum: ${monitor.hygrometer.relativeHumidity}`);
-    var now = Date.now();
-
-    if (now - updated >= 5000) {
-      updated = now;
-      //     clients.forEach(socket => {
-      //       socket.emit("report", {
-      //         thermometer: monitor.thermometer.fahrenheit,
-      //         hygrometer: monitor.hygrometer.relativeHumidity
-      //       });
-      //     });
-    }
+  io.on("connection", socket => {
+    monitor.on("change", function() {
+      lcd.cursor(0, 0).print(`Temp: ${monitor.thermometer.fahrenheit}`);
+      lcd.cursor(1, 0).print(`Hum: ${monitor.hygrometer.relativeHumidity}`);
+      var now = Date.now();
+      // if (now - updated >= 5000) {
+      //   updated = now;
+      // }
+      socket.emit("report", {
+        thermometer: monitor.thermometer.fahrenheit,
+        hygrometer: monitor.hygrometer.relativeHumidity
+      });
+    });
   });
-
-  //   io.on("connection", socket => {
-  // Allow up to 5 monitor sockets to
-  // connect to this enviro-monitor server
-  // if (clients.size < 5) {
-  //   clients.add(socket);
-  //   // When the socket disconnects, remove
-  //   // it from the recipient set.
-  // }
-
-  // socket.on("disconnect", () => clients.delete(socket));
-  //   });
 
   var port = 8000;
   server.listen(port, () => {
