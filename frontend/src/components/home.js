@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import HiveCard from "./hiveCard";
 import history from "../history";
-import { Link } from "react-router-dom";
 import ButtonAppBar from "./buttonAppBar";
 
 export default class Home extends Component {
@@ -51,7 +50,6 @@ export default class Home extends Component {
     if (this.state.hives.length === 0) {
       return (
         <div>
-          <ButtonAppBar />
           <h4>no hiveeees </h4>
           <button onClick={() => history.push("/hive/new")}>Add hive</button>
         </div>
@@ -59,17 +57,6 @@ export default class Home extends Component {
     } else {
       return (
         <div>
-          <ButtonAppBar />
-          <h3>user profile on left size </h3>
-          <p>id: {this.props.currentUserId} </p>
-          <p>First name:{this.state.profile.firstName}</p>
-          <p> Last name: {this.state.profile.lastName}</p>
-          <p>E-mail{this.state.profile.email}</p>
-          <button
-            onClick={() => history.push(`user/${this.state.profile._id}/edit`)}
-          >
-            Edit profile
-          </button>
           <h3>hive's list</h3>
 
           {this.state.hives.map(hive => {

@@ -50,7 +50,6 @@ export default class editProfile extends Component {
   render() {
     return (
       <div>
-        <ButtonAppBar />
         <h1>Edit profile</h1>
         <form>
           <p>

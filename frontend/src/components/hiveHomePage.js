@@ -19,7 +19,6 @@ export default class HiveHomePage extends Component {
     console.log(this.state);
     return (
       <div>
-        <ButtonAppBar />
         <h3>Hive home page</h3>
         <h4>
           with links to weather, graphs, notes and green/red light indicating

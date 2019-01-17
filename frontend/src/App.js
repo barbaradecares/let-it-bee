@@ -18,7 +18,8 @@ import "typeface-roboto";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import Details from "./components/details";
 import Tips from "./components/tips";
-
+import MyProfile from "./components/myProfile";
+import ButtonAppBar from "./components/buttonAppBar";
 const theme = createMuiTheme({
   palette: {
     primary: { main: "#FDD835" },
@@ -113,6 +114,7 @@ export default class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
+        <ButtonAppBar />
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route
@@ -147,6 +149,12 @@ export default class App extends Component {
             path="/hive/:id/edit"
             component={props => <EditHive {...props} />}
           />
+          <Route
+            exact
+            path="/user/:id/"
+            component={props => <MyProfile {...props} />}
+          />
+
           <Route
             exact
             path="/user/:id/edit"

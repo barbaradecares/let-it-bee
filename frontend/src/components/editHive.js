@@ -69,7 +69,7 @@ export default class editHive extends React.Component {
   render() {
     return (
       <div>
-        <ButtonAppBar />
+        {" "}
         <form>
           Hive's name:{" "}
           <input

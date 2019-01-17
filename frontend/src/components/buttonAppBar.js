@@ -28,9 +28,26 @@ function ButtonAppBar(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            Let it Bee
-          </Typography>
+          <Button
+            variant="h6"
+            color="inherit"
+            className={classes.grow}
+            onClick={() => history.push("/home")}
+          >
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              Let it Bee
+            </Typography>
+          </Button>
+          <Button
+            color="inherit"
+            onClick={() => {
+              localStorage.clear();
+              history.push(`/${localStorage.id}`);
+            }}
+          >
+            My profile
+          </Button>
+
           <Button
             color="inherit"
             onClick={() => {
