@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import history from "../history";
+import ButtonAppBar from "./buttonAppBar";
 
 export default class editProfile extends Component {
   constructor(props) {
@@ -49,6 +50,7 @@ export default class editProfile extends Component {
   render() {
     return (
       <div>
+        <ButtonAppBar />
         <h1>Edit profile</h1>
         <form>
           <p>

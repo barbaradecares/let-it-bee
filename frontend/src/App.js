@@ -13,11 +13,19 @@ import EditHive from "./components/editHive";
 import EditProfile from "./components/editProfile";
 import Notes from "./components/notes";
 import io from "socket.io-client";
-// const socket = io("http://10.185.0.57:8000"); //check for ip changes
+import HiveHomePage from "./components/hiveHomePage";
+import "typeface-roboto";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import Details from "./components/details";
+import Tips from "./components/tips";
 
-// socket.on("report", data => {
-//   console.log(data);
-// });
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: "#FDD835" },
+    secondary: { main: "#212121" },
+    type: "dark"
+  }
+});
 
 export default class App extends Component {
   constructor(props) {
@@ -71,6 +79,7 @@ export default class App extends Component {
   logout = () => {
     localStorage.clear();
     this.setState({ currentUserId: null });
+    history.push("/");
   };
 
   signup = e => {
@@ -103,49 +112,68 @@ export default class App extends Component {
 
   render() {
     return (
-      <Switch>
-        <Route exact path="/" component={Welcome} />
-        <Route
-          exact
-          path="/login"
-          component={() => <Login login={this.login} />}
-        />
-        <Route
-          exact
-          path="/signup"
-          component={() => <SignUp signup={this.signup} />}
-        />
-        <Route
-          exact
-          path="/home"
-          component={() => (
-            <Home
-              currentUserId={this.state.currentUserId}
-              redirectToEdit={this.redirectToEdit}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/hive/new"
-          component={() => <AddHive currentUserId={this.state.currentUserId} />}
-        />
-        <Route
-          exact
-          path="/hive/:id/edit"
-          component={props => <EditHive {...props} />}
-        />
-        <Route
-          exact
-          path="/user/:id/edit"
-          component={props => <EditProfile {...props} />}
-        />
-        <Route
-          exact
-          path="/hive/:id/notes"
-          component={props => <Notes {...props} />}
-        />
-      </Switch>
+      <MuiThemeProvider theme={theme}>
+        <Switch>
+          <Route exact path="/" component={Welcome} />
+          <Route
+            exact
+            path="/login"
+            component={() => <Login login={this.login} />}
+          />
+          <Route
+            exact
+            path="/signup"
+            component={() => <SignUp signup={this.signup} />}
+          />
+          <Route
+            exact
+            path="/home"
+            component={() => (
+              <Home
+                currentUserId={this.state.currentUserId}
+                redirectToEdit={this.redirectToEdit}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/hive/new"
+            component={() => (
+              <AddHive currentUserId={this.state.currentUserId} />
+            )}
+          />
+          <Route
+            exact
+            path="/hive/:id/edit"
+            component={props => <EditHive {...props} />}
+          />
+          <Route
+            exact
+            path="/user/:id/edit"
+            component={props => <EditProfile {...props} />}
+          />
+          <Route
+            exact
+            path="/hive/:id/notes"
+            component={props => <Notes {...props} />}
+          />
+          <Route
+            exact
+            path="/hive/:id"
+            component={props => <HiveHomePage {...props} />}
+          />
+          <Route
+            exact
+            path="/hive/:id/details"
+            component={props => <Details {...props} />}
+          />
+          <Route
+            exact
+            path="/hive/:id/tips"
+            component={props => <Tips {...props} />}
+          />
+        </Switch>
+      </MuiThemeProvider>
     );
   }
 }

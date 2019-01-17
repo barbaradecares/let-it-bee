@@ -13,6 +13,7 @@ import LockIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
+import history from "../history";
 
 const styles = theme => ({
   main: {
@@ -36,7 +37,7 @@ const styles = theme => ({
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.primary.main
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -75,31 +76,28 @@ function SignIn(props) {
             />
           </FormControl>
           <FormControlLabel
-            control={<Checkbox value="remember" color="secondary" />}
+            control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            color="secondary"
+            color="primary"
             className={classes.submit}
           >
             Sign in
           </Button>
 
-          <Link to={"/signup"}>
-            <Button
-              fullWidth
-              variant="text"
-              color="secondary"
-              className={classes.submit}
-
-              // onClick={props.signup}
-            >
-              Sign up
-            </Button>
-          </Link>
+          <Button
+            fullWidth
+            variant="text"
+            color="primary"
+            className={classes.submit}
+            onClick={() => history.push("/signup")}
+          >
+            Sign up
+          </Button>
         </form>
       </Paper>
     </main>

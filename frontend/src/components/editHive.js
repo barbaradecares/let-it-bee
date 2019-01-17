@@ -5,6 +5,7 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import history from "../history";
 import Home from "./home";
+import ButtonAppBar from "./buttonAppBar";
 
 export default class editHive extends React.Component {
   constructor(props) {
@@ -68,6 +69,7 @@ export default class editHive extends React.Component {
   render() {
     return (
       <div>
+        <ButtonAppBar />
         <form>
           Hive's name:{" "}
           <input

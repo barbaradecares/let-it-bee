@@ -20,7 +20,7 @@ const util = require("util");
 application.use(Express.static(path.join(__dirname, "/app")));
 application.use("/vendor", Express.static(__dirname + "/node_modules/"));
 
-const currentIP = "10.185.7.101";
+const currentIP = "10.185.2.81";
 let hiveId = "5c3d06ea06f4306720f48816";
 let hive;
 let weather = {};
@@ -66,11 +66,18 @@ const fetchWeather = () => {
   return new Promise((resolve, reject) => {
     request(clientServerOptions, function(err, response) {
       // console.log(error, response);
-      let data = JSON.parse(response.body);
-      weather = {
-        temp: data.currently.temperature,
-        summary: data.currently.summary
-      };
+      if (response) {
+        let data = JSON.parse(response.body);
+        weather = {
+          temp: data.currently.temperature,
+          summary: data.currently.summary
+        };
+      } else {
+        weather = {
+          temp: 68,
+          summary: "Partly Cloudy"
+        };
+      }
       // console.log(weather);
       if (err) {
         reject(err);
@@ -87,7 +94,7 @@ board.on("ready", () => {
 
   var monitor = new five.Multi({
     controller: "BME280",
-    freq: 5000
+    freq: 10000
   });
 
   const saveToDb = postData => {

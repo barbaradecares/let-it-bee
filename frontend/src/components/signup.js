@@ -12,7 +12,8 @@ import LockIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-import { Link } from "react-router-dom";
+import history from "../history";
+
 const styles = theme => ({
   main: {
     width: "auto",
@@ -35,7 +36,7 @@ const styles = theme => ({
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.primary.main
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -46,7 +47,7 @@ const styles = theme => ({
   }
 });
 
-function SignIn(props) {
+function Signup(props) {
   const { classes } = props;
 
   return (
@@ -92,37 +93,37 @@ function SignIn(props) {
             />
           </FormControl>
           <FormControlLabel
-            control={<Checkbox value="remember" color="secondary" />}
+            control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            color="secondary"
+            color="primary"
             className={classes.submit}
           >
             Sign up
           </Button>
-          <Link to={"/login"}>
-            <Button
-              fullWidth
-              variant="text"
-              color="secondary"
-              className={classes.submit}
-              onClick={props.signin}
-            >
-              Sign in
-            </Button>
-          </Link>
+
+          <Button
+            fullWidth
+            variant="text"
+            color="primary"
+            className={classes.submit}
+            // onClick={props.signin}
+            onClick={() => history.push("/login")}
+          >
+            Sign in
+          </Button>
         </form>
       </Paper>
     </main>
   );
 }
 
-SignIn.propTypes = {
+Signup.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SignIn);
+export default withStyles(styles)(Signup);
