@@ -7,7 +7,8 @@ export default class HiveHomePage extends Component {
   constructor() {
     super();
     this.state = {
-      hive: {}
+      hive: {},
+      forecast: {}
     };
   }
   componentDidMount() {
@@ -19,19 +20,25 @@ export default class HiveHomePage extends Component {
       `http://localhost:5000/api/hive/${this.props.match.params.id}/weather`
     )
       .then(res => res.json())
-      .then(forecast => console.log(forecast));
+      .then(data => this.setState({ hive: data.hive, forecast: data.weather }));
   }
   // console.log("hii");
   render() {
-    // console.log(this.state);
+    console.log(this.state.forecast.summary);
     return (
       <div>
         <h3>Hive home page</h3>
-        <h4>
+        <h4>{this.state.hive.name}</h4>
+        <h5>
           with links to weather, graphs, notes and green/red light indicating
           health status of hive
-        </h4>
+        </h5>
+        <h1>
+          The weather in {this.state.hive.location} is:{" "}
+          {this.state.forecast.summary}, {this.state.forecast.temp}
+        </h1>
         <ArcGaugeComponent />
+
         <button
           onClick={() =>
             history.push(`/hive/${this.props.match.params.id}/details`)
