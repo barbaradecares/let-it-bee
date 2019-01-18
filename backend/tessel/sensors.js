@@ -20,7 +20,7 @@ const util = require("util");
 application.use(Express.static(path.join(__dirname, "/app")));
 application.use("/vendor", Express.static(__dirname + "/node_modules/"));
 
-const currentIP = "10.185.2.81";
+const currentIP = "10.185.5.131";
 let hiveId = "5c3d06ea06f4306720f48816";
 let hive;
 let weather = {};
@@ -148,6 +148,9 @@ board.on("ready", () => {
         hygrometer: monitor.hygrometer.relativeHumidity
       });
     });
+    // socket.on("disconnect", function() {
+    //   socket.disconnect();
+    // });
   });
 
   var port = 8000;

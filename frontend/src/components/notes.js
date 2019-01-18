@@ -8,25 +8,17 @@ export default class Notes extends Component {
     this.state = {
       recordsWithNotes: [],
       last: {},
-      sorted: []
+      sorted: [],
+      records: []
     };
   }
 
-  fetchNotes = () => {
+  fetchRecords = () => {
     return fetch(
       `http://localhost:5000/api/hive/${this.props.match.params.id}/records`
     )
       .then(resp => resp.json())
-      .then(records =>
-        records.map(record => {
-          if (record.notes) {
-            this.setState(state => {
-              state.recordsWithNotes = [...this.state.recordsWithNotes, record];
-              return state;
-            });
-          }
-        })
-      );
+      .then(records => this.setState({ records: records }));
   };
 
   fetchHive = () => {
@@ -45,7 +37,7 @@ export default class Notes extends Component {
   };
   componentDidMount() {
     this.fetchHive();
-    this.fetchNotes().then(() => this.getSortedAndLast());
+    this.fetchRecords().then(() => this.getSorted());
   }
 
   handleChange = e => {
@@ -53,10 +45,18 @@ export default class Notes extends Component {
   };
 
   handleSubmit = e => {
+    let newRecord = {};
     e.preventDefault();
-    let newRecord = this.state.last;
-    newRecord.notes = this.state.notes;
+    if (this.state.records.length > 0) {
+      newRecord = this.state.records[0];
+      newRecord.notes = this.state.notes;
+    } else {
+      newRecord.notes = this.state.notes;
+      newRecord.hiveId = this.state.hive._id;
+    }
+
     newRecord.created_at = Date.now();
+
     console.log(newRecord);
     fetch("http://localhost:5000/api/records", {
       method: "POST",
@@ -76,20 +76,27 @@ export default class Notes extends Component {
       });
   };
 
-  getSortedAndLast = () => {
+  getSorted = () => {
     function compare(a, b) {
-      if (a.created_at < b.created_at) return -1;
-      if (a.created_at > b.created_at) return 1;
+      if (a.created_at > b.created_at) return -1;
+      if (a.created_at < b.created_at) return 1;
       return 0;
     }
-    let sorted = this.state.recordsWithNotes.sort(compare);
+    let sorted = this.state.records.sort(compare);
+    this.setState({ records: sorted });
 
-    let last = sorted[sorted.length - 1];
-
-    this.setState({ sorted, last });
+    // this.state.records.map(record => {
+    //   if (record.notes) {
+    //     this.setState(state => {
+    //       state.recordsWithNotes = [...this.state.recordsWithNotes, record];
+    //       return state;
+    //     });
+    //   }
+    // });
   };
 
   render() {
+    console.log(this.state);
     return (
       <div>
         <h3>Notes page</h3>
@@ -107,8 +114,10 @@ export default class Notes extends Component {
           </form>
         </div>
         <div id="notes">
-          {this.state.recordsWithNotes.map(record => {
-            return <p>{record.notes}</p>;
+          {this.state.records.map(record => {
+            if (record.notes) {
+              return <p>{record.notes}</p>;
+            }
           })}
         </div>
       </div>

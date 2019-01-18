@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import { ArcGauge, LinearGauge } from "@progress/kendo-react-gauges";
 import { timingSafeEqual } from "crypto";
 
-const socket = io("http://10.185.2.139:8000"); //check for ip changes
+const socket = io("http://10.185.5.228:8000"); //check for ip changes
 
 export default class ArcGaugeComponent extends Component {
   constructor() {
@@ -19,15 +19,6 @@ export default class ArcGaugeComponent extends Component {
       this.setState({ ...data });
     });
   }
-
-  // componentDidMount() {
-  // setInterval(() => {
-  //   this.setState({
-  //     value: Math.ceil(Math.random() * 100)
-  //   });
-  // }, 1000);
-  // console.log(this.state);
-  // }
 
   render = () => {
     this.getData();
