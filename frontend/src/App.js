@@ -133,7 +133,14 @@ export default class App extends Component {
               />
             )}
           />
-
+          <Route
+            path="/hive/:id"
+            render={props => {
+              return (
+                <Hives currentUserId={this.state.currentUserId} {...props} />
+              );
+            }}
+          />
           <Route
             path="/hive"
             render={props => {
