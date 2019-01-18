@@ -23,7 +23,8 @@ module.exports = app => {
   app.patch("/api/hive/:id/edit", hiveController.update);
   // delete path
 
+  app.get("/api/hive/:id/weather", hiveController.getWeather);
+
   app.get("/api/hive/:id/records", recordController.filteredRecords);
   app.post("/api/records/", recordController.create);
-  //use post request to add a record with note
 };

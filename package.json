@@ -23,6 +23,7 @@
     "http": "0.0.0",
     "mongoose": "^5.4.2",
     "react-chartjs-2": "^2.7.4",
-    "react-search-field": "^1.0.0"
+    "react-search-field": "^1.0.0",
+    "request": "^2.88.0"
   }
 }

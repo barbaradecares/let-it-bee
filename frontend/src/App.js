@@ -8,18 +8,14 @@ import SignUp from "./components/signup";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Welcome from "./components/welcome";
 import history from "./history";
-import AddHive from "./components/addHive";
-import EditHive from "./components/editHive";
 import EditProfile from "./components/editProfile";
-import Notes from "./components/notes";
 import io from "socket.io-client";
-import HiveHomePage from "./components/hiveHomePage";
 import "typeface-roboto";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import Details from "./components/details";
-import Tips from "./components/tips";
 import MyProfile from "./components/myProfile";
 import ButtonAppBar from "./components/buttonAppBar";
+import Hives from "./components/hives";
+
 const theme = createMuiTheme({
   palette: {
     primary: { main: "#FDD835" },
@@ -137,18 +133,16 @@ export default class App extends Component {
               />
             )}
           />
+
           <Route
-            exact
-            path="/hive/new"
-            component={() => (
-              <AddHive currentUserId={this.state.currentUserId} />
-            )}
+            path="/hive"
+            render={props => {
+              return (
+                <Hives currentUserId={this.state.currentUserId} {...props} />
+              );
+            }}
           />
-          <Route
-            exact
-            path="/hive/:id/edit"
-            component={props => <EditHive {...props} />}
-          />
+
           <Route
             exact
             path="/user/:id/"
@@ -159,26 +153,6 @@ export default class App extends Component {
             exact
             path="/user/:id/edit"
             component={props => <EditProfile {...props} />}
-          />
-          <Route
-            exact
-            path="/hive/:id/notes"
-            component={props => <Notes {...props} />}
-          />
-          <Route
-            exact
-            path="/hive/:id"
-            component={props => <HiveHomePage {...props} />}
-          />
-          <Route
-            exact
-            path="/hive/:id/details"
-            component={props => <Details {...props} />}
-          />
-          <Route
-            exact
-            path="/hive/:id/tips"
-            component={props => <Tips {...props} />}
           />
         </Switch>
       </MuiThemeProvider>

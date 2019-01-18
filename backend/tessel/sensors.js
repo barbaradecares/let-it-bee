@@ -21,7 +21,7 @@ application.use(Express.static(path.join(__dirname, "/app")));
 application.use("/vendor", Express.static(__dirname + "/node_modules/"));
 
 const currentIP = "10.185.5.131";
-let hiveId = "5c3d06ea06f4306720f48816";
+let hiveId = "5c421ecf93b0ad10260e1eec";
 let hive;
 let weather = {};
 

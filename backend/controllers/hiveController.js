@@ -1,3 +1,4 @@
+var request = require("request");
 const Hive = require("../models/Hive.js");
 
 let catchAsync = promise => {
@@ -68,4 +69,44 @@ exports.create = async (req, res, next) => {
 exports.filteredHives = async (req, res, next) => {
   let hives = await Hive.find({ userId: req.params.id });
   res.json(hives);
+};
+
+exports.getWeather = async (req, res, next) => {
+  // console.log("controller");
+  let hive = await Hive.find({ _id: req.params.id });
+  hive = hive[0];
+  // console.log(hive);
+  let apiKey = "88440f3a1e59807fd6f14245a2e3346c",
+    url = "https://api.darksky.net/forecast/",
+    lati = hive.lat,
+    longi = hive.lng,
+    api_call = url + apiKey + "/" + lati + "," + longi;
+  console.log(api_call, hive);
+  var clientServerOptions = {
+    uri: api_call,
+    body: JSON.stringify({}),
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  request(clientServerOptions, function(err, response) {
+    if (response) {
+      // console.log(response.body);
+      let data = JSON.parse(response.body);
+      weather = {
+        temp: data.currently.temperature,
+        summary: data.currently.summary
+      };
+      res.json({ weather, hive });
+    } else {
+      weather = {
+        temp: 68,
+        summary: "Partly Cloudy"
+      };
+    }
+    if (err) {
+      reject(err);
+    }
+  });
 };

@@ -11,12 +11,19 @@ export default class HiveHomePage extends Component {
     };
   }
   componentDidMount() {
-    fetch(`http://localhost:5000/api/hive/${this.props.match.params.id}`)
-      .then(resp => resp.json())
-      .then(hive => this.setState({ hive: hive }));
+    // fetch(`http://localhost:5000/api/hive/${this.props.match.params.id}`)
+    //   .then(resp => resp.json())
+    //   .then(hive => this.setState({ hive: hive }))
+    //   .then(() => {
+    fetch(
+      `http://localhost:5000/api/hive/${this.props.match.params.id}/weather`
+    )
+      .then(res => res.json())
+      .then(forecast => console.log(forecast));
   }
+  // console.log("hii");
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <div>
         <h3>Hive home page</h3>
@@ -26,17 +33,23 @@ export default class HiveHomePage extends Component {
         </h4>
         <ArcGaugeComponent />
         <button
-          onClick={() => history.push(`/hive/${this.state.hive._id}/details`)}
+          onClick={() =>
+            history.push(`/hive/${this.props.match.params.id}/details`)
+          }
         >
           Data
         </button>
         <button
-          onClick={() => history.push(`/hive/${this.state.hive._id}/tips`)}
+          onClick={() =>
+            history.push(`/hive/${this.props.match.params.id}/tips`)
+          }
         >
           Tips
         </button>
         <button
-          onClick={() => history.push(`/hive/${this.state.hive._id}/notes`)}
+          onClick={() =>
+            history.push(`/hive/${this.props.match.params.id}/notes`)
+          }
         >
           Notes
         </button>
