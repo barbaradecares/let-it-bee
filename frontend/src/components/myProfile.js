@@ -41,10 +41,10 @@ export default class hiveCard extends Component {
             <Card>
               <CardContent>
                 <h3>user profile on left size </h3>
-                <p>id: {this.props.currentUserId} </p>
+                <p>id: {localStorage.id} </p>
                 <p>First name:{this.state.profile.firstName}</p>
                 <p> Last name: {this.state.profile.lastName}</p>
-                <p>E-mail{this.state.profile.email}</p>
+                <p>E-mail: {this.state.profile.email}</p>
                 <button
                   onClick={() => history.push(`/user/${localStorage.id}/edit`)}
                 >

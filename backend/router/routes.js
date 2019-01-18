@@ -21,7 +21,7 @@ module.exports = app => {
   app.post("/api/hive/new", hiveController.create);
   app.get("/api/hive/:id", hiveController.show);
   app.patch("/api/hive/:id/edit", hiveController.update);
-  // delete path
+  app.delete("/api/hive/:id", hiveController.delete);
 
   app.get("/api/hive/:id/weather", hiveController.getWeather);
 

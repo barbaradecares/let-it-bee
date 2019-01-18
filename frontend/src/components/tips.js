@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ButtonAppBar from "./buttonAppBar";
-
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 export default class Tips extends Component {
   constructor(props) {
     super(props);
@@ -56,8 +57,12 @@ export default class Tips extends Component {
     this.getStatus();
     return (
       <div>
-        <h3>Tips and advices</h3>
-        <h4>based on hive's status</h4>
+        <Card>
+          <CardContent>
+            <h3>Tips and advices</h3>
+            <h4>based on hive's status</h4>
+          </CardContent>
+        </Card>
       </div>
     );
   }

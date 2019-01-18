@@ -40,7 +40,7 @@ export default class addHive extends React.Component {
         Accept: "application/json"
       },
       body: JSON.stringify({
-        userId: this.props.currentUserId,
+        userId: localStorage.id,
         name: this.state.name,
         lat: this.state.lat,
         lng: this.state.lng,

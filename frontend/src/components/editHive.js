@@ -5,7 +5,8 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import history from "../history";
 import Home from "./home";
-import ButtonAppBar from "./buttonAppBar";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
 export default class editHive extends React.Component {
   constructor(props) {
@@ -69,62 +70,65 @@ export default class editHive extends React.Component {
   render() {
     return (
       <div>
-        {" "}
-        <form>
-          Hive's name:{" "}
-          <input
-            value={this.state.name}
-            id="name"
-            onChange={e => this.handleNameChange(e.target.value)}
-            value={this.state.name}
-          />
-          <PlacesAutocomplete
-            value={this.state.address}
-            onChange={this.handleChange}
-            onSelect={this.handleSelect}
-            value={this.state.location}
-          >
-            {({
-              getInputProps,
-              suggestions,
-              getSuggestionItemProps,
-              loading
-            }) => (
-              <div>
-                Hive's location{" "}
-                <input
-                  {...getInputProps({
-                    placeholder: "Search Places ...",
-                    className: "location-search-input"
-                  })}
-                />
-                <div className="autocomplete-dropdown-container">
-                  {loading && <div>Loading...</div>}
-                  {suggestions.map(suggestion => {
-                    const className = suggestion.active
-                      ? "suggestion-item--active"
-                      : "suggestion-item";
-                    // inline style for demonstration purpose
-                    const style = suggestion.active
-                      ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                      : { backgroundColor: "#ffffff", cursor: "pointer" };
-                    return (
-                      <div
-                        {...getSuggestionItemProps(suggestion, {
-                          className,
-                          style
-                        })}
-                      >
-                        <span>{suggestion.description}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-          </PlacesAutocomplete>
-          <button onClick={this.editHive}>Edit hive</button>
-        </form>
+        <Card>
+          <CardContent>
+            <form>
+              Hive's name:{" "}
+              <input
+                value={this.state.name}
+                id="name"
+                onChange={e => this.handleNameChange(e.target.value)}
+                value={this.state.name}
+              />
+              <PlacesAutocomplete
+                value={this.state.address}
+                onChange={this.handleChange}
+                onSelect={this.handleSelect}
+                value={this.state.location}
+              >
+                {({
+                  getInputProps,
+                  suggestions,
+                  getSuggestionItemProps,
+                  loading
+                }) => (
+                  <div>
+                    Hive's location{" "}
+                    <input
+                      {...getInputProps({
+                        placeholder: "Search Places ...",
+                        className: "location-search-input"
+                      })}
+                    />
+                    <div className="autocomplete-dropdown-container">
+                      {loading && <div>Loading...</div>}
+                      {suggestions.map(suggestion => {
+                        const className = suggestion.active
+                          ? "suggestion-item--active"
+                          : "suggestion-item";
+                        // inline style for demonstration purpose
+                        const style = suggestion.active
+                          ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                          : { backgroundColor: "#ffffff", cursor: "pointer" };
+                        return (
+                          <div
+                            {...getSuggestionItemProps(suggestion, {
+                              className,
+                              style
+                            })}
+                          >
+                            <span>{suggestion.description}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </PlacesAutocomplete>
+              <button onClick={this.editHive}>Edit hive</button>
+            </form>
+          </CardContent>
+        </Card>
       </div>
     );
   }

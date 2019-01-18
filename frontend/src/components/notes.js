@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import history from "../history";
-import ButtonAppBar from "./buttonAppBar";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
 export default class Notes extends Component {
   constructor(props) {
@@ -99,27 +100,35 @@ export default class Notes extends Component {
     console.log(this.state);
     return (
       <div>
-        <h3>Notes page</h3>
-        <h4>hive's notes and add note form</h4>
+        <Card>
+          <CardContent>
+            <h3>Notes page</h3>
+            <h4>hive's notes and add note form</h4>
 
-        <div>
-          <h3>Add note: + display current stats</h3>
-          <form>
-            <p>Add note: </p>
-            <textarea
-              onChange={e => this.handleChange(e)}
-              value={this.state.notes}
-            />
-            <button onClick={e => this.handleSubmit(e)}>Submit</button>
-          </form>
-        </div>
-        <div id="notes">
-          {this.state.records.map(record => {
-            if (record.notes) {
-              return <p>{record.notes}</p>;
-            }
-          })}
-        </div>
+            <div>
+              <h3>Add note: + display current stats</h3>
+              <form>
+                <p>Add note: </p>
+                <textarea
+                  onChange={e => this.handleChange(e)}
+                  value={this.state.notes}
+                />
+                <button onClick={e => this.handleSubmit(e)}>Submit</button>
+              </form>
+            </div>
+            <div id="notes">
+              {this.state.records.map(record => {
+                if (record.notes) {
+                  return (
+                    <Card>
+                      <CardContent>{record.notes}</CardContent>
+                    </Card>
+                  );
+                }
+              })}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     );
   }

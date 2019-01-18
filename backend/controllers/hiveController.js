@@ -40,6 +40,7 @@ exports.update = async (req, res, next) => {
 };
 
 exports.delete = async (req, res, next) => {
+  console.log("hiii");
   let [err, hive] = await catchAsync(Hive.findByIdAndDelete(req.params.id));
   if (err) {
     res.status(500).json({
@@ -81,7 +82,7 @@ exports.getWeather = async (req, res, next) => {
     lati = hive.lat,
     longi = hive.lng,
     api_call = url + apiKey + "/" + lati + "," + longi;
-  console.log(api_call, hive);
+  // console.log(api_call, hive);
   var clientServerOptions = {
     uri: api_call,
     body: JSON.stringify({}),
