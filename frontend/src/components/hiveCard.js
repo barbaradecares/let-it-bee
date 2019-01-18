@@ -5,7 +5,7 @@ import CardContent from "@material-ui/core/CardContent";
 
 const divStyle = {
   margin: "40px",
-  width: "20%"
+  width: "70%"
 };
 export default class hiveCard extends Component {
   render() {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import HiveCard from "./hiveCard";
 import history from "../history";
-import ButtonAppBar from "./buttonAppBar";
+import Grid from "@material-ui/core/Grid";
 
 export default class Home extends Component {
   constructor() {
@@ -47,28 +47,41 @@ export default class Home extends Component {
   };
 
   render() {
-    if (this.state.hives.length === 0) {
-      return (
-        <div>
-          <h4>no hiveeees </h4>
-          <button onClick={() => history.push("/hive/new")}>Add hive</button>
-        </div>
-      );
+    if (localStorage.token) {
+      if (this.state.hives.length === 0) {
+        return (
+          <div>
+            <h4>no hiveeees </h4>
+            <button onClick={() => history.push("/hive/new")}>Add hive</button>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <h3>hive's list</h3>
+            <Grid container>
+              <Grid item xs={3} />
+              <Grid item xs={6}>
+                {this.state.hives.map(hive => {
+                  return (
+                    <Grid item xs>
+                      <div>
+                        <HiveCard hive={hive} />
+                      </div>
+                    </Grid>
+                  );
+                })}
+                <button onClick={() => history.push("/hive/new")}>
+                  Add hive
+                </button>
+              </Grid>
+            </Grid>
+          </div>
+        );
+      }
     } else {
-      return (
-        <div>
-          <h3>hive's list</h3>
-
-          {this.state.hives.map(hive => {
-            return (
-              <div>
-                <HiveCard hive={hive} />
-              </div>
-            );
-          })}
-          <button onClick={() => history.push("/hive/new")}>Add hive</button>
-        </div>
-      );
+      history.push("/");
+      return <div />;
     }
   }
 }

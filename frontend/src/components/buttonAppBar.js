@@ -24,43 +24,46 @@ const styles = {
 
 function ButtonAppBar(props) {
   const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Button
-            variant="h6"
-            color="inherit"
-            className={classes.grow}
-            onClick={() => history.push("/home")}
-          >
-            <Typography variant="h6" color="inherit" className={classes.grow}>
-              Let it Bee
-            </Typography>
-          </Button>
-          <Button
-            color="inherit"
-            onClick={() => {
-              localStorage.clear();
-              history.push(`/${localStorage.id}`);
-            }}
-          >
-            My profile
-          </Button>
+  if (localStorage.token) {
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <Button
+              variant="h6"
+              color="inherit"
+              className={classes.grow}
+              onClick={() => history.push("/home")}
+            >
+              <Typography variant="h6" color="inherit" className={classes.grow}>
+                Let it Bee
+              </Typography>
+            </Button>
+            <Button
+              color="inherit"
+              onClick={() => {
+                history.push(`/user/${localStorage.id}`);
+              }}
+            >
+              My profile
+            </Button>
 
-          <Button
-            color="inherit"
-            onClick={() => {
-              localStorage.clear();
-              history.push("/");
-            }}
-          >
-            Sign out
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+            <Button
+              color="inherit"
+              onClick={() => {
+                localStorage.clear();
+                history.push("/");
+              }}
+            >
+              Sign out
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  } else {
+    return <div />;
+  }
 }
 
 ButtonAppBar.propTypes = {

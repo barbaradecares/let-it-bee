@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import history from "../history";
-import ButtonAppBar from "./buttonAppBar";
-
+import Grid from "@material-ui/core/Grid";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 export default class editProfile extends Component {
   constructor(props) {
     super(props);
@@ -50,40 +51,51 @@ export default class editProfile extends Component {
   render() {
     return (
       <div>
-        <h1>Edit profile</h1>
-        <form>
-          <p>
-            First name:{" "}
-            <input
-              id="firstName"
-              value={this.state.firstName}
-              onChange={e => {
-                this.handleChange({ firstName: e.target.value });
-              }}
-            />
-          </p>
-          <p>
-            Last name:{" "}
-            <input
-              id="lastName"
-              value={this.state.lastName}
-              onChange={e => {
-                this.handleChange({ lastName: e.target.value });
-              }}
-            />{" "}
-          </p>
-          <p>
-            E-mail:{" "}
-            <input
-              id="email"
-              value={this.state.email}
-              onChange={e => {
-                this.handleChange({ email: e.target.value });
-              }}
-            />{" "}
-          </p>
-          <button onClick={e => this.handleSubmit(e)}>Edit profile</button>
-        </form>
+        <Grid container>
+          <Grid item xs={3} />
+          <Grid item xs={6}>
+            <Card>
+              <CardContent>
+                <h1>Edit profile</h1>
+                <form>
+                  <p>
+                    First name:{" "}
+                    <input
+                      id="firstName"
+                      value={this.state.firstName}
+                      onChange={e => {
+                        this.handleChange({ firstName: e.target.value });
+                      }}
+                    />
+                  </p>
+                  <p>
+                    Last name:{" "}
+                    <input
+                      id="lastName"
+                      value={this.state.lastName}
+                      onChange={e => {
+                        this.handleChange({ lastName: e.target.value });
+                      }}
+                    />{" "}
+                  </p>
+                  <p>
+                    E-mail:{" "}
+                    <input
+                      id="email"
+                      value={this.state.email}
+                      onChange={e => {
+                        this.handleChange({ email: e.target.value });
+                      }}
+                    />{" "}
+                  </p>
+                  <button onClick={e => this.handleSubmit(e)}>
+                    Edit profile
+                  </button>
+                </form>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
       </div>
     );
   }
