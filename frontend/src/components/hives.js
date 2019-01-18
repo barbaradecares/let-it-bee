@@ -44,13 +44,6 @@ export default class Hives extends Component {
             <Switch>
               <Route
                 exact
-                path={`${this.props.match.path}/new`}
-                component={() => (
-                  <AddHive currentUserId={this.props.currentUserId} />
-                )}
-              />
-              <Route
-                exact
                 path={`${this.props.match.path}/edit`}
                 component={props => <EditHive {...props} />}
               />

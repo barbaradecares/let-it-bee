@@ -15,7 +15,7 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import MyProfile from "./components/myProfile";
 import ButtonAppBar from "./components/buttonAppBar";
 import Hives from "./components/hives";
-
+import AddHive from "./components/addHive";
 const theme = createMuiTheme({
   palette: {
     primary: { main: "#FDD835" },
@@ -134,6 +134,13 @@ export default class App extends Component {
             )}
           />
           <Route
+            exact
+            path={`/hive/new`}
+            component={props => (
+              <AddHive currentUserId={this.props.currentUserId} {...props} />
+            )}
+          />
+          <Route
             path="/hive/:id"
             render={props => {
               return (
@@ -141,15 +148,14 @@ export default class App extends Component {
               );
             }}
           />
-          <Route
+          {/* <Route
             path="/hive"
             render={props => {
               return (
                 <Hives currentUserId={this.state.currentUserId} {...props} />
               );
             }}
-          />
-
+          /> */}
           <Route
             exact
             path="/user/:id/"

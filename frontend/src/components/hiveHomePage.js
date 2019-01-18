@@ -33,7 +33,7 @@ export default class HiveHomePage extends Component {
       }
     })
       .then(res => res.json())
-      .then(data => console.log("deleted this", data));
+      .then(data => history.push("/home"));
   };
 
   render() {
