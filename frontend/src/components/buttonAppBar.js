@@ -76,6 +76,22 @@ function ButtonAppBar(props) {
                 Let it Bee
               </Typography>
             </Button>
+            <Button
+              color="inherit"
+              onClick={() => {
+                history.push("/login");
+              }}
+            >
+              Log in
+            </Button>
+            <Button
+              color="inherit"
+              onClick={() => {
+                history.push("/signup");
+              }}
+            >
+              Sign up
+            </Button>
           </Toolbar>
         </AppBar>
       </div>
