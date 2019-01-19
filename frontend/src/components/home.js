@@ -52,7 +52,7 @@ export default class Home extends Component {
   };
 
   render() {
-    if (this.state.fetched) {
+    if (localStorage.token) {
       if (this.state.hives.length === 0) {
         return (
           <div>
@@ -89,7 +89,9 @@ export default class Home extends Component {
         );
       }
     } else {
-      return <CircularProgress />;
+      history.push("/");
+
+      return <div />;
     }
   }
 }
