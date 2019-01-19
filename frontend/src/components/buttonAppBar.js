@@ -62,7 +62,24 @@ function ButtonAppBar(props) {
       </div>
     );
   } else {
-    return <div />;
+    return (
+      <div>
+        <AppBar position="static">
+          <Toolbar>
+            <Button
+              variant="h6"
+              color="inherit"
+              className={classes.grow}
+              onClick={() => history.push("/home")}
+            >
+              <Typography variant="h6" color="inherit" className={classes.grow}>
+                Let it Bee
+              </Typography>
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
   }
 }
 

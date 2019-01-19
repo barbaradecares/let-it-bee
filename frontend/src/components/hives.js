@@ -6,6 +6,8 @@ import AddHive from "./addHive";
 import EditHive from "./editHive";
 import Notes from "./notes";
 import HiveHomePage from "./hiveHomePage";
+import { withStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default class Hives extends Component {
   constructor() {
@@ -74,7 +76,7 @@ export default class Hives extends Component {
         return <Redirect to={"/home"} />;
       }
     } else {
-      return "loading";
+      return <CircularProgress />;
     }
   }
 }

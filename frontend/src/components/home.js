@@ -2,13 +2,17 @@ import React, { Component } from "react";
 import HiveCard from "./hiveCard";
 import history from "../history";
 import Grid from "@material-ui/core/Grid";
+import { CardContent, Card } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default class Home extends Component {
   constructor() {
     super();
     this.state = {
-      profile: [],
-      hives: []
+      profile: {},
+      hives: [],
+      fetched: false
     };
   }
 
@@ -43,11 +47,12 @@ export default class Home extends Component {
           state.hives = hives;
           return state;
         })
-      );
+      )
+      .then(() => this.setState({ fetched: true }));
   };
 
   render() {
-    if (localStorage.token) {
+    if (this.state.fetched) {
       if (this.state.hives.length === 0) {
         return (
           <div>
@@ -58,30 +63,33 @@ export default class Home extends Component {
       } else {
         return (
           <div>
-            <h3>hive's list</h3>
             <Grid container>
               <Grid item xs={3} />
               <Grid item xs={6}>
-                {this.state.hives.map(hive => {
-                  return (
-                    <Grid item xs>
-                      <div>
-                        <HiveCard hive={hive} />
-                      </div>
-                    </Grid>
-                  );
-                })}
-                <button onClick={() => history.push("/hive/new")}>
-                  Add hive
-                </button>
+                <Card>
+                  <CardContent>
+                    <h3>hive's list</h3>
+                    {this.state.hives.map(hive => {
+                      return (
+                        <Grid item xs>
+                          <div>
+                            <HiveCard hive={hive} />
+                          </div>
+                        </Grid>
+                      );
+                    })}
+                    <button onClick={() => history.push("/hive/new")}>
+                      Add hive
+                    </button>
+                  </CardContent>
+                </Card>
               </Grid>
             </Grid>
           </div>
         );
       }
     } else {
-      history.push("/");
-      return <div />;
+      return <CircularProgress />;
     }
   }
 }

@@ -4,6 +4,9 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import ButtonAppBar from "./buttonAppBar";
 import { Z_HUFFMAN_ONLY } from "zlib";
+import { withStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 // var myLineChart = new Chart(ctx).Line(data, options);
 
 // new Chart(ctx).Line(data, {
@@ -122,7 +125,7 @@ export default class Details extends Component {
         </div>
       );
     } else {
-      return "loading";
+      return <CircularProgress />;
     }
   }
 }

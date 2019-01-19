@@ -16,6 +16,7 @@ import MyProfile from "./components/myProfile";
 import ButtonAppBar from "./components/buttonAppBar";
 import Hives from "./components/hives";
 import AddHive from "./components/addHive";
+import Intructions from "./components/instructions";
 const theme = createMuiTheme({
   palette: {
     primary: { main: "#FDD835" },
@@ -136,6 +137,16 @@ export default class App extends Component {
           <Route
             exact
             path={`/hive/new`}
+            component={props => (
+              <Intructions
+                currentUserId={this.props.currentUserId}
+                {...props}
+              />
+            )}
+          />
+          <Route
+            exact
+            path={`/hive/new/form`}
             component={props => (
               <AddHive currentUserId={this.props.currentUserId} {...props} />
             )}

@@ -17,6 +17,7 @@ export default class ArcGaugeComponent extends Component {
   getData() {
     socket.on("report", data => {
       this.setState({ ...data });
+      console.log(data);
     });
   }
 
