@@ -119,9 +119,26 @@ export default class Notes extends Component {
             <div id="notes">
               {this.state.records.map(record => {
                 if (record.notes) {
+                  let date = new Date(record.created_at);
+                  let month = date.getMonth() + 1;
+                  if (month < 10) {
+                    month = `0${month}`;
+                  }
+                  let day = date.getDate();
+                  if (day < 10) {
+                    day = `0${day}`;
+                  }
+
+                  let formatedString = `${month}/${day}, at ${date.getHours()}:${date.getMinutes()}h`;
+
                   return (
                     <Card>
-                      <CardContent>{record.notes}</CardContent>
+                      <CardContent>
+                        {record.notes}
+                        <div style={{ textAlign: "right" }}>
+                          {formatedString}
+                        </div>
+                      </CardContent>
                     </Card>
                   );
                 }

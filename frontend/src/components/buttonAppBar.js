@@ -61,7 +61,7 @@ function ButtonAppBar(props) {
           </Toolbar>
         </AppBar>
         <img
-          src="../images/comb.jpg"
+          src="../images/frame.jpg"
           style={{
             maxWidth: "100%",
             height: "auto",

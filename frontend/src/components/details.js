@@ -38,9 +38,18 @@ export default class Details extends Component {
 
     this.state.records.forEach(record => {
       if (record.weather) {
-        let formated = new Date(record.created_at);
-        let formatedString = `${formated.getMonth() +
-          1}/${formated.getDate()} at ${formated.getHours()} h`;
+        let date = new Date(record.created_at);
+        let month = date.getMonth() + 1;
+        if (month < 10) {
+          month = `0${month}`;
+        }
+        let day = date.getDate();
+        if (day < 10) {
+          day = `0${day}`;
+        }
+
+        let formatedString = `${month}/${day}, at ${date.getHours()}:${date.getMinutes()}h`;
+
         labels.push(record.created_at);
         formatedTime.push(formatedString);
         temp.push(record.temperature);

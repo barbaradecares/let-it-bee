@@ -4,7 +4,7 @@ import history from "../history";
 import Grid from "@material-ui/core/Grid";
 import { CardContent, Card } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import Button from "@material-ui/core/Button";
 import MyProfile from "./myProfile";
 
 export default class Home extends Component {
@@ -72,9 +72,14 @@ export default class Home extends Component {
                 <Card>
                   <CardContent>
                     <h4>no hiveeees </h4>
-                    <button onClick={() => history.push("/hive/new")}>
+                    <Button
+                      variant="contained"
+                      size="small"
+                      color="primary"
+                      onClick={() => history.push("/hive/new")}
+                    >
                       Add hive
-                    </button>
+                    </Button>
                   </CardContent>
                 </Card>
               </Grid>
@@ -99,12 +104,19 @@ export default class Home extends Component {
                 <Card>
                   <CardContent>
                     <h3>My hives</h3>
-                    {this.state.hives.map(hive => {
-                      return <HiveCard hive={hive} />;
-                    })}
-                    <button onClick={() => history.push("/hive/new")}>
+                    <Grid container direction="row" justify="center">
+                      {this.state.hives.map(hive => {
+                        return <HiveCard hive={hive} />;
+                      })}
+                    </Grid>
+                    <Button
+                      variant="contained"
+                      size="small"
+                      color="primary"
+                      onClick={() => history.push("/hive/new")}
+                    >
                       Add hive
-                    </button>
+                    </Button>
                   </CardContent>
                 </Card>
               </Grid>

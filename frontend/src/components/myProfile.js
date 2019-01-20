@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
-
+import Button from "@material-ui/core/Button";
 export default class hiveCard extends Component {
   constructor() {
     super();
@@ -47,7 +47,6 @@ export default class hiveCard extends Component {
                 style={{ margin: 10, width: 200, height: 200 }}
               />
             </Grid>
-
             <p>
               <b>First name:</b> {this.state.profile.firstName}
             </p>
@@ -57,11 +56,15 @@ export default class hiveCard extends Component {
             <p>
               <b> E-mail: </b> {this.state.profile.email}
             </p>
-            <button
+            <Button
+              variant="contained"
+              size="small"
+              color="primary"
+              // className={classes.margin}
               onClick={() => history.push(`/user/${localStorage.id}/edit`)}
             >
-              Edit profile
-            </button>
+              Edit
+            </Button>
           </CardContent>
         </Card>
         {/* </Grid> */}
