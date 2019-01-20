@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import { CardContent, Card } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import MyProfile from "./myProfile";
 
 export default class Home extends Component {
   constructor() {
@@ -56,27 +57,50 @@ export default class Home extends Component {
       if (this.state.hives.length === 0) {
         return (
           <div>
-            <h4>no hiveeees </h4>
-            <button onClick={() => history.push("/hive/new")}>Add hive</button>
+            <Grid
+              container
+              spacing={40}
+              direction="row"
+              justify="center"
+              alignItems="center"
+              style={{ minHeight: "100vh" }}
+            >
+              <Grid item xs={3} alignItems="center">
+                <MyProfile />
+              </Grid>
+              <Grid item xs={6}>
+                <Card>
+                  <CardContent>
+                    <h4>no hiveeees </h4>
+                    <button onClick={() => history.push("/hive/new")}>
+                      Add hive
+                    </button>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
           </div>
         );
       } else {
         return (
           <div>
-            <Grid container>
-              <Grid item xs={3} />
+            <Grid
+              container
+              spacing={40}
+              direction="row"
+              justify="center"
+              alignItems="center"
+              style={{ minHeight: "100vh" }}
+            >
+              <Grid item xs={3}>
+                <MyProfile />
+              </Grid>
               <Grid item xs={6}>
                 <Card>
                   <CardContent>
-                    <h3>hive's list</h3>
+                    <h3>My hives</h3>
                     {this.state.hives.map(hive => {
-                      return (
-                        <Grid item xs>
-                          <div>
-                            <HiveCard hive={hive} />
-                          </div>
-                        </Grid>
-                      );
+                      return <HiveCard hive={hive} />;
                     })}
                     <button onClick={() => history.push("/hive/new")}>
                       Add hive

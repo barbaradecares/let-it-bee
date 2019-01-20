@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import history from "../history";
+import ButtonBase from "@material-ui/core/ButtonBase";
 
 const styles = {
   root: {
@@ -39,14 +40,14 @@ function ButtonAppBar(props) {
                 Let it Bee
               </Typography>
             </Button>
-            <Button
+            {/* <Button
               color="inherit"
               onClick={() => {
                 history.push(`/user/${localStorage.id}`);
               }}
             >
               My profile
-            </Button>
+            </Button> */}
 
             <Button
               color="inherit"
@@ -59,6 +60,15 @@ function ButtonAppBar(props) {
             </Button>
           </Toolbar>
         </AppBar>
+        <img
+          src="../images/comb.jpg"
+          style={{
+            maxWidth: "100%",
+            height: "auto",
+            position: "absolute",
+            zIndex: -2
+          }}
+        />
       </div>
     );
   } else {
@@ -84,14 +94,14 @@ function ButtonAppBar(props) {
             >
               Log in
             </Button>
-            <Button
+            {/* <Button
               color="inherit"
               onClick={() => {
                 history.push("/signup");
               }}
             >
               Sign up
-            </Button>
+            </Button> */}
           </Toolbar>
         </AppBar>
       </div>

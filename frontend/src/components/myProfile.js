@@ -5,6 +5,7 @@ import ButtonAppBar from "./buttonAppBar";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import Avatar from "@material-ui/core/Avatar";
 
 export default class hiveCard extends Component {
   constructor() {
@@ -35,25 +36,36 @@ export default class hiveCard extends Component {
     console.log(this.state);
     return (
       <div>
-        <Grid container>
+        {/* <Grid container>
           <Grid item xs={3} />
-          <Grid item xs={6}>
-            <Card>
-              <CardContent>
-                <h3>user profile on left size </h3>
-                <p>id: {localStorage.id} </p>
-                <p>First name:{this.state.profile.firstName}</p>
-                <p> Last name: {this.state.profile.lastName}</p>
-                <p>E-mail: {this.state.profile.email}</p>
-                <button
-                  onClick={() => history.push(`/user/${localStorage.id}/edit`)}
-                >
-                  Edit profile
-                </button>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
+          <Grid item xs={6}> */}
+        <Card>
+          <CardContent>
+            <Grid container justify="center" alignItems="center">
+              <Avatar
+                src="../images/bes.jpg"
+                style={{ margin: 10, width: 200, height: 200 }}
+              />
+            </Grid>
+
+            <p>
+              <b>First name:</b> {this.state.profile.firstName}
+            </p>
+            <p>
+              <b>Last name:</b> {this.state.profile.lastName}
+            </p>
+            <p>
+              <b> E-mail: </b> {this.state.profile.email}
+            </p>
+            <button
+              onClick={() => history.push(`/user/${localStorage.id}/edit`)}
+            >
+              Edit profile
+            </button>
+          </CardContent>
+        </Card>
+        {/* </Grid> */}
+        {/* </Grid> */}
       </div>
     );
   }
