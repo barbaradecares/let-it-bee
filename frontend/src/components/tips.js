@@ -55,6 +55,7 @@ export default class Tips extends Component {
   getStatus = () => {};
   render() {
     this.getStatus();
+    console.log(this.state);
     return (
       <div>
         <Card>

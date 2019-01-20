@@ -120,17 +120,15 @@ export default class Notes extends Component {
               {this.state.records.map(record => {
                 if (record.notes) {
                   let date = new Date(record.created_at);
+
                   let month = date.getMonth() + 1;
                   if (month < 10) {
                     month = `0${month}`;
                   }
                   let day = date.getDate();
-                  if (day < 10) {
-                    day = `0${day}`;
-                  }
+                  if (day < 10) day = `0${day}`;
 
                   let formatedString = `${month}/${day}, at ${date.getHours()}:${date.getMinutes()}h`;
-
                   return (
                     <Card>
                       <CardContent>
