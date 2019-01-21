@@ -7,7 +7,7 @@ export default class hiveCard extends Component {
   render() {
     return (
       <div>
-        <Card style={{ margin: "10%" }}>
+        <Card style={{ width: "250px", margin: "20px" }}>
           <CardContent>
             <h4>{this.props.hive.name}</h4>
             <p>{this.props.hive.location}</p>

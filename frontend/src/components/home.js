@@ -100,25 +100,17 @@ export default class Home extends Component {
               <Grid item xs={3}>
                 <MyProfile />
               </Grid>
-              <Grid item xs={6}>
-                <Card>
+              <Grid item xs={8}>
+                {/* <Card>
                   <CardContent>
-                    <h3>My hives</h3>
-                    <Grid container direction="row" justify="center">
-                      {this.state.hives.map(hive => {
-                        return <HiveCard hive={hive} />;
-                      })}
-                    </Grid>
-                    <Button
-                      variant="contained"
-                      size="small"
-                      color="primary"
-                      onClick={() => history.push("/hive/new")}
-                    >
-                      Add hive
-                    </Button>
-                  </CardContent>
-                </Card>
+                    <h3>My hives</h3> */}
+                <Grid container direction="row" justify="center">
+                  {this.state.hives.map(hive => {
+                    return <HiveCard hive={hive} />;
+                  })}
+                </Grid>
+                {/* </CardContent>
+                </Card> */}
               </Grid>
             </Grid>
           </div>

@@ -60,10 +60,18 @@ export default class hiveCard extends Component {
               variant="contained"
               size="small"
               color="primary"
+              onClick={() => history.push("/hive/new")}
+            >
+              Add hive
+            </Button>
+            <Button
+              // variant="outlined"
+              size="small"
+              color="secondary"
               // className={classes.margin}
               onClick={() => history.push(`/user/${localStorage.id}/edit`)}
             >
-              Edit
+              Edit profile
             </Button>
           </CardContent>
         </Card>
