@@ -7,6 +7,8 @@ import history from "../history";
 import { relative } from "path";
 import Grid from "@material-ui/core/Grid";
 import { Button } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 
 const styles = theme => ({
   root: {
@@ -164,8 +166,20 @@ function MainPhoto(props) {
               zIndex: 0
             }}
           >
-            <div style={{ position: relative, zIndex: 1, color: "white" }}>
-              <h1> tessst</h1>
+            <div style={{ position: relative, zIndex: 1 }}>
+              <Grid container alignItems="center" style={{ minHeight: "60vh" }}>
+                <Grid item xs={4} />
+                <Grid item xs={4}>
+                  <Card style={{ borderRadius: 100 }}>
+                    <CardContent align="center">
+                      <h1>hi</h1>
+                      <h1>teeeeest</h1>
+                      <h1>teeeeest</h1>
+                      <h1>teeeeest</h1>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
             </div>
           </div>
         </div>
