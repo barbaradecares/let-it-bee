@@ -35,7 +35,7 @@ export default class Details extends Component {
     let hum = [];
     let weather = [];
     let formatedTime = [];
-
+    let notes = [];
     this.state.records.forEach(record => {
       if (record.weather) {
         let date = new Date(record.created_at);
@@ -49,12 +49,12 @@ export default class Details extends Component {
         }
 
         let formatedString = `${month}/${day}, at ${date.getHours()}:${date.getMinutes()}h`;
-
         labels.push(record.created_at);
         formatedTime.push(formatedString);
         temp.push(record.temperature);
         hum.push(record.humidity);
         weather.push(record.weather.temp);
+        notes.push(record.notes);
       }
     });
     this.setState({
@@ -62,7 +62,8 @@ export default class Details extends Component {
       temp: temp,
       hum: hum,
       weather: weather,
-      formated: formatedTime
+      formated: formatedTime,
+      notes: notes
     });
   };
 
@@ -108,6 +109,7 @@ export default class Details extends Component {
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(151,187,205,1)",
           data: this.state.weather,
+          myData: this.state.notes,
           borderColor: ["rgba(255, 159, 64, 1)"],
           borderWidth: 1
         }
@@ -124,13 +126,50 @@ export default class Details extends Component {
               <Card>
                 <CardContent>
                   <h3>Hive's details</h3>
-                  <h4>Chart.js record</h4>
                   <Line
                     data={data}
                     width={100}
                     height={50}
                     options={{
-                      maintainAspectRatio: false
+                      tooltips: {
+                        mode: "x-axis",
+                        enabled: true,
+                        callbacks: {
+                          // afterLabel: function(tooltipItems, data) {
+                          //   return "hiii";
+                          // }
+                          label: function(tooltipItem, data) {
+                            let label =
+                              data.datasets[tooltipItem.datasetIndex].label;
+                            let value =
+                              data.datasets[tooltipItem.datasetIndex].data[
+                                tooltipItem.index
+                              ];
+
+                            if (
+                              data.datasets[tooltipItem.datasetIndex].myData
+                            ) {
+                              if (
+                                data.datasets[tooltipItem.datasetIndex].myData[
+                                  tooltipItem.index
+                                ]
+                              ) {
+                                return [
+                                  `${label}:${value}`,
+                                  `Notes: ${
+                                    data.datasets[tooltipItem.datasetIndex]
+                                      .myData[tooltipItem.index]
+                                  }`
+                                ];
+                                // "Notes:" +
+                                // data.datasets[tooltipItem.datasetIndex]
+                                //   .myData[tooltipItem.index]]
+                              } else return label + ":" + value;
+                            } else return label + ":" + value;
+                          }
+                        },
+                        maintainAspectRatio: false
+                      }
                     }}
                   />
                   <Button
