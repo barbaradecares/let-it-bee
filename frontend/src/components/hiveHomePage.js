@@ -47,7 +47,7 @@ export default class HiveHomePage extends Component {
           <Grid item xs={6}>
             <Card>
               <CardContent>
-                <h1>Overview</h1>
+                <h3>Overview</h3>
                 <h4>Live data from {this.state.hive.name}</h4>
                 <h5>
                   {this.state.hive.location}: {this.state.forecast.summary},{" "}
