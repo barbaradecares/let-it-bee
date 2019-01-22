@@ -5,6 +5,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+
 export default class Notes extends Component {
   constructor(props) {
     super(props);
@@ -128,8 +130,10 @@ export default class Notes extends Component {
 
                 <div>
                   <form>
-                    <p>Add note: </p>
-                    <textarea
+                    <TextField
+                      multiline
+                      label="Add note"
+                      variant="outlined"
                       onChange={e => this.handleChange(e)}
                       value={this.state.notes}
                     />

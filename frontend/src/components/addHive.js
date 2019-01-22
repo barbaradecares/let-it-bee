@@ -8,6 +8,8 @@ import Home from "./home";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 export default class addHive extends React.Component {
   constructor(props) {
@@ -70,64 +72,77 @@ export default class addHive extends React.Component {
             <Card>
               <CardContent>
                 <h1>Add a new hive to collection</h1>
-                <form>
-                  Hive's name:{" "}
-                  <input
-                    id="name"
-                    onChange={e => this.handleNameChange(e.target.value)}
-                  />
-                  <PlacesAutocomplete
-                    value={this.state.address}
-                    onChange={this.handleChange}
-                    onSelect={this.handleSelect}
-                  >
-                    {({
-                      getInputProps,
-                      suggestions,
-                      getSuggestionItemProps,
-                      loading
-                    }) => (
-                      <div>
-                        Hive's location{" "}
-                        <input
-                          {...getInputProps({
-                            placeholder: "Search Places ...",
-                            className: "location-search-input"
-                          })}
-                        />
-                        <div className="autocomplete-dropdown-container">
-                          {loading && <div>Loading...</div>}
-                          {suggestions.map(suggestion => {
-                            const className = suggestion.active
-                              ? "suggestion-item--active"
-                              : "suggestion-item";
-                            // inline style for demonstration purpose
-                            const style = suggestion.active
-                              ? {
-                                  backgroundColor: "#fafafa",
-                                  cursor: "pointer"
-                                }
-                              : {
-                                  backgroundColor: "#ffffff",
-                                  cursor: "pointer"
-                                };
-                            return (
-                              <div
-                                {...getSuggestionItemProps(suggestion, {
-                                  className,
-                                  style
-                                })}
-                              >
-                                <span>{suggestion.description}</span>
-                              </div>
-                            );
-                          })}
+                <div style={{ display: "flex", flexWrap: "wrap" }}>
+                  <form>
+                    <TextField
+                      variant="outlined"
+                      label="Hive's name"
+                      id="name"
+                      onChange={e => this.handleNameChange(e.target.value)}
+                    />
+                    <PlacesAutocomplete
+                      value={this.state.address}
+                      onChange={this.handleChange}
+                      onSelect={this.handleSelect}
+                    >
+                      {({
+                        getInputProps,
+                        suggestions,
+                        getSuggestionItemProps,
+                        loading
+                      }) => (
+                        <div>
+                          <br />
+
+                          <TextField
+                            label="Hive's location"
+                            variant="outlined"
+                            {...getInputProps({
+                              placeholder: "Search Places ...",
+                              className: "location-search-input"
+                            })}
+                          />
+                          <div className="autocomplete-dropdown-container">
+                            {loading && <div>Loading...</div>}
+                            {suggestions.map(suggestion => {
+                              const className = suggestion.active
+                                ? "suggestion-item--active"
+                                : "suggestion-item";
+                              // inline style for demonstration purpose
+                              const style = suggestion.active
+                                ? {
+                                    backgroundColor: "#fafafa",
+                                    cursor: "pointer"
+                                  }
+                                : {
+                                    backgroundColor: "#ffffff",
+                                    cursor: "pointer"
+                                  };
+                              return (
+                                <div
+                                  {...getSuggestionItemProps(suggestion, {
+                                    className,
+                                    style
+                                  })}
+                                >
+                                  <span>{suggestion.description}</span>
+                                </div>
+                              );
+                            })}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </PlacesAutocomplete>
-                  <button onClick={this.createHive}>Add hive</button>
-                </form>
+                      )}
+                    </PlacesAutocomplete>
+                    <br />
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={this.createHive}
+                    >
+                      Add hive
+                    </Button>
+                  </form>
+                </div>
               </CardContent>
             </Card>
           </Grid>

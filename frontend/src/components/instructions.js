@@ -3,6 +3,8 @@ import CardContent from "@material-ui/core/CardContent";
 import React from "react";
 import history from "../history";
 import { Grid } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 export default class Instructions extends React.Component {
   render() {
@@ -16,9 +18,12 @@ export default class Instructions extends React.Component {
                 <h3>Congratulations on your new acquisition!</h3>
                 <form onSubmit={() => history.push("/hive/new/form")}>
                   <p>
-                    Enter your Let it bee kit id: <input />
+                    Enter your Let it bee kit id: <br />
+                    <TextField variant="outlined" color="primary" />
                   </p>
-                  <button type={"submit"}>Submit</button>
+                  <Button variant="contained" color="primary" type={"submit"}>
+                    Submit
+                  </Button>
                 </form>
               </CardContent>
             </Card>

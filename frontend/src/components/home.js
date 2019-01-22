@@ -71,7 +71,7 @@ export default class Home extends Component {
               <Grid item xs={6}>
                 <Card>
                   <CardContent>
-                    <h4>no hiveeees </h4>
+                    <h4>We couldn't find any hive linked to this acount.</h4>
                     <Button
                       variant="contained"
                       size="small"

@@ -7,6 +7,8 @@ import history from "../history";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 export default class editHive extends React.Component {
   constructor(props) {
@@ -79,13 +81,16 @@ export default class editHive extends React.Component {
               <CardContent>
                 <h1>Edit hive</h1>
                 <form>
-                  Hive's name:{" "}
-                  <input
+                  {" "}
+                  <TextField
+                    variant="outlined"
+                    // label="Hive's name"
                     value={this.state.name}
                     id="name"
                     onChange={e => this.handleNameChange(e.target.value)}
                     value={this.state.name}
                   />
+                  <br />
                   <PlacesAutocomplete
                     value={this.state.address}
                     onChange={this.handleChange}
@@ -99,8 +104,10 @@ export default class editHive extends React.Component {
                       loading
                     }) => (
                       <div>
-                        Hive's location{" "}
-                        <input
+                        <br />
+                        <TextField
+                          variant="outlined"
+                          // label="Hive's name"
                           {...getInputProps({
                             placeholder: "Search Places ...",
                             className: "location-search-input"
@@ -137,7 +144,14 @@ export default class editHive extends React.Component {
                       </div>
                     )}
                   </PlacesAutocomplete>
-                  <button onClick={this.editHive}>Edit hive</button>
+                  <br />
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={this.editHive}
+                  >
+                    Edit hive
+                  </Button>
                 </form>
               </CardContent>
             </Card>
