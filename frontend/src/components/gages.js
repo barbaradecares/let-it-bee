@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import io from "socket.io-client";
 import { ArcGauge, LinearGauge } from "@progress/kendo-react-gauges";
 import { timingSafeEqual } from "crypto";
+import Thermometer from "react-thermometer-ecotropy";
+import Grid from "@material-ui/core/Grid";
 
 const socket = io("http://10.185.5.228:8000"); //check for ip changes
 
@@ -49,9 +51,36 @@ export default class ArcGaugeComponent extends Component {
 
     return (
       <div>
-        <ArcGauge {...arcOptions} arcCenterRender={arcCenterRenderer} />
+        <Grid container alignItems="center">
+          <Grid item xs={2} />
+          <Grid item xs={5} alignContent="center">
+            <Thermometer
+              theme="dark"
+              value={this.state.thermometer}
+              max="110"
+              format="°F"
+              size="large"
+              height="300"
+            />
+            <h3>Temperature</h3>
+          </Grid>
+          <Grid item xs={5} alignContent="center">
+            <Thermometer
+              theme="dark"
+              value={this.state.hygrometer}
+              max="100"
+              format="%"
+              size="large"
+              height="300"
+            />
+            <h3>Humidity</h3>
+          </Grid>
+        </Grid>
+        <br />
+        <br />
+        {/* <ArcGauge {...arcOptions} arcCenterRender={arcCenterRenderer} />
 
-        <ArcGauge {...arcOptions2} arcCenterRender={arcCenterRenderer2} />
+        <ArcGauge {...arcOptions2} arcCenterRender={arcCenterRenderer2} /> */}
       </div>
     );
   };
