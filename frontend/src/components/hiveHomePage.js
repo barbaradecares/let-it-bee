@@ -3,6 +3,8 @@ import ArcGaugeComponent from "./gages";
 import history from "../history";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import { Grid } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
 export default class HiveHomePage extends Component {
   constructor() {
@@ -40,44 +42,59 @@ export default class HiveHomePage extends Component {
     console.log(this.state.forecast.summary);
     return (
       <div>
-        <Card>
-          <CardContent>
-            <h3>Hive home page</h3>
-            <h4>{this.state.hive.name}</h4>
-            <h5>
-              with links to weather, graphs, notes and green/red light
-              indicating health status of hive
-            </h5>
-            <h1>
-              The weather in {this.state.hive.location} is:{" "}
-              {this.state.forecast.summary}, {this.state.forecast.temp}
-            </h1>
-            <ArcGaugeComponent />
-
-            <button
-              onClick={() =>
-                history.push(`/hive/${this.props.match.params.id}/details`)
-              }
-            >
-              Data
-            </button>
-            <button
-              onClick={() =>
-                history.push(`/hive/${this.props.match.params.id}/tips`)
-              }
-            >
-              Tips
-            </button>
-            <button
-              onClick={() =>
-                history.push(`/hive/${this.props.match.params.id}/notes`)
-              }
-            >
-              Notes
-            </button>
-            <button onClick={() => this.deleteHive()}>Delete this hive</button>
-          </CardContent>
-        </Card>
+        <Grid container alignItems="center" style={{ minHeight: "100vh" }}>
+          <Grid item xs={3} />
+          <Grid item xs={6}>
+            <Card>
+              <CardContent>
+                <h1>Overview</h1>
+                <h4>Live data from {this.state.hive.name}</h4>
+                <h5>
+                  {this.state.hive.location}: {this.state.forecast.summary},{" "}
+                  {this.state.forecast.temp}
+                </h5>
+                <ArcGaugeComponent />
+                <div>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() =>
+                      history.push(
+                        `/hive/${this.props.match.params.id}/details`
+                      )
+                    }
+                  >
+                    Data
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() =>
+                      history.push(`/hive/${this.props.match.params.id}/tips`)
+                    }
+                  >
+                    Tips
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() =>
+                      history.push(`/hive/${this.props.match.params.id}/notes`)
+                    }
+                  >
+                    Notes
+                  </Button>
+                  <Button onClick={() => this.deleteHive()}>
+                    Delete this hive
+                  </Button>
+                  <br />
+                  <br />
+                  <Button onClick={() => history.push("/home")}>Back</Button>
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
       </div>
     );
   }

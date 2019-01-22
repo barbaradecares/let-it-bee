@@ -51,7 +51,7 @@ export default class editProfile extends Component {
   render() {
     return (
       <div>
-        <Grid container>
+        <Grid container alignItems="center" style={{ minHeight: "100vh" }}>
           <Grid item xs={3} />
           <Grid item xs={6}>
             <Card>

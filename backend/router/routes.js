@@ -27,4 +27,6 @@ module.exports = app => {
 
   app.get("/api/hive/:id/records", recordController.filteredRecords);
   app.post("/api/records/", recordController.create);
+  app.delete("/api/record/:id", recordController.delete);
+  app.patch("/api/record/:id", recordController.update);
 };

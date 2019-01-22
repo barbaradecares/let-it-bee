@@ -36,7 +36,7 @@ function ButtonAppBar(props) {
               className={classes.grow}
               onClick={() => history.push("/home")}
             >
-              <Typography variant="h6" color="inherit" className={classes.grow}>
+              <Typography variant="h3" color="inherit" className={classes.grow}>
                 Let it Bee
               </Typography>
             </Button>
@@ -82,7 +82,14 @@ function ButtonAppBar(props) {
               className={classes.grow}
               onClick={() => history.push("/home")}
             >
-              <Typography variant="h6" color="inherit" className={classes.grow}>
+              {/* <Typography variant="h6" color="inherit" className={classes.grow}> */}
+              <Typography
+                component="span"
+                color="#000000"
+                variant="h3"
+                className={classes.imageTitle}
+              >
+                {" "}
                 Let it Bee
               </Typography>
             </Button>

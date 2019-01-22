@@ -9,6 +9,7 @@
     "@progress/kendo-react-gauges": "^2.6.1",
     "@progress/kendo-react-intl": "^2.6.1",
     "axios": "^0.18.0",
+    "material-ui": "^1.0.0-beta.47",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-hexagon": "^1.1.3",

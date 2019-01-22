@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import history from "../history";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-
+import Grid from "@material-ui/core/Grid";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Button from "@material-ui/core/Button";
 export default class Notes extends Component {
   constructor(props) {
     super(props);
@@ -85,65 +87,104 @@ export default class Notes extends Component {
     }
     let sorted = this.state.records.sort(compare);
     this.setState({ records: sorted });
-
-    // this.state.records.map(record => {
-    //   if (record.notes) {
-    //     this.setState(state => {
-    //       state.recordsWithNotes = [...this.state.recordsWithNotes, record];
-    //       return state;
-    //     });
-    //   }
-    // });
   };
 
+  deleteRecord = record => {
+    if (record.humidity) {
+      let newRecord = record;
+      newRecord.notes = "";
+      fetch(`http://localhost:5000/api/record/${record._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify(newRecord)
+      })
+        .then(res => res.json())
+        .then(result => {
+          if (result.error) {
+            alert(result.error);
+          } else {
+            history.push(`/hive/${this.state.hive._id}/notes`);
+          }
+        });
+    } else {
+      fetch(`http://localhost:5000/api/record/${record._id}`, {
+        method: "DELETE"
+      }).then(history.push(`/hive/${this.state.hive._id}/notes`));
+    }
+  };
   render() {
     console.log(this.state);
     return (
       <div>
-        <Card>
-          <CardContent>
-            <h3>Notes page</h3>
-            <h4>hive's notes and add note form</h4>
+        <Grid container alignItems="center" style={{ minHeight: "100vh" }}>
+          <Grid item xs={3} />
+          <Grid item xs={6}>
+            <Card>
+              <CardContent>
+                <h3>Notes</h3>
 
-            <div>
-              <h3>Add note: + display current stats</h3>
-              <form>
-                <p>Add note: </p>
-                <textarea
-                  onChange={e => this.handleChange(e)}
-                  value={this.state.notes}
-                />
-                <button onClick={e => this.handleSubmit(e)}>Submit</button>
-              </form>
-            </div>
-            <div id="notes">
-              {this.state.records.map(record => {
-                if (record.notes) {
-                  let date = new Date(record.created_at);
+                <div>
+                  <form>
+                    <p>Add note: </p>
+                    <textarea
+                      onChange={e => this.handleChange(e)}
+                      value={this.state.notes}
+                    />
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={e => this.handleSubmit(e)}
+                    >
+                      Submit
+                    </Button>
+                  </form>
+                </div>
+                <div id="notes">
+                  {this.state.records.map(record => {
+                    if (record.notes) {
+                      let date = new Date(record.created_at);
 
-                  let month = date.getMonth() + 1;
-                  if (month < 10) {
-                    month = `0${month}`;
-                  }
-                  let day = date.getDate();
-                  if (day < 10) day = `0${day}`;
+                      let month = date.getMonth() + 1;
+                      if (month < 10) {
+                        month = `0${month}`;
+                      }
+                      let day = date.getDate();
+                      if (day < 10) day = `0${day}`;
 
-                  let formatedString = `${month}/${day}, at ${date.getHours()}:${date.getMinutes()}h`;
-                  return (
-                    <Card>
-                      <CardContent>
-                        {record.notes}
-                        <div style={{ textAlign: "right" }}>
-                          {formatedString}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                }
-              })}
-            </div>
-          </CardContent>
-        </Card>
+                      let formatedString = `${month}/${day}, at ${date.getHours()}:${date.getMinutes()}h`;
+                      return (
+                        <Card>
+                          <CardContent>
+                            {record.notes}
+                            <div style={{ textAlign: "right" }}>
+                              {formatedString}
+                              <Button onClick={() => this.deleteRecord(record)}>
+                                <DeleteIcon />
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      );
+                    }
+                  })}
+                </div>
+                <div>
+                  <br />
+                  <Button
+                    onClick={() =>
+                      history.push(`/hive/${this.props.match.params.id}`)
+                    }
+                  >
+                    Back
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
       </div>
     );
   }

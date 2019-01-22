@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import ButtonAppBar from "./buttonAppBar";
-import { Z_HUFFMAN_ONLY } from "zlib";
-import { withStyles } from "@material-ui/core/styles";
+// import ButtonAppBar from "./buttonAppBar";
+// import { Z_HUFFMAN_ONLY } from "zlib";
+// import { withStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
-// var myLineChart = new Chart(ctx).Line(data, options);
-
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import history from "../history";
 // new Chart(ctx).Line(data, {
 //   bezierCurve: false
 // });
@@ -117,20 +117,33 @@ export default class Details extends Component {
     if (this.state.labels) {
       return (
         <div>
-          <Card>
-            <CardContent>
-              <h3>Hive's details</h3>
-              <h4>Chart.js record</h4>
-              <Line
-                data={data}
-                width={100}
-                height={50}
-                options={{
-                  maintainAspectRatio: false
-                }}
-              />
-            </CardContent>
-          </Card>
+          <Grid container alignItems="center" style={{ minHeight: "100vh" }}>
+            <Grid item xs={3} />
+            <Grid item xs={6}>
+              {" "}
+              <Card>
+                <CardContent>
+                  <h3>Hive's details</h3>
+                  <h4>Chart.js record</h4>
+                  <Line
+                    data={data}
+                    width={100}
+                    height={50}
+                    options={{
+                      maintainAspectRatio: false
+                    }}
+                  />
+                  <Button
+                    onClick={() =>
+                      history.push(`/hive/${this.props.match.params.id}`)
+                    }
+                  >
+                    Back{" "}
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
         </div>
       );
     } else {
