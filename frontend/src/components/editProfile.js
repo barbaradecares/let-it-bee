@@ -3,6 +3,8 @@ import history from "../history";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 export default class editProfile extends Component {
   constructor(props) {
     super(props);
@@ -59,38 +61,46 @@ export default class editProfile extends Component {
                 <h1>Edit profile</h1>
                 <form>
                   <p>
-                    First name:{" "}
-                    <input
+                    <TextField
                       id="firstName"
                       value={this.state.firstName}
+                      helperText="First Name"
+                      margin="normal"
                       onChange={e => {
                         this.handleChange({ firstName: e.target.value });
                       }}
                     />
                   </p>
                   <p>
-                    Last name:{" "}
-                    <input
+                    <TextField
                       id="lastName"
                       value={this.state.lastName}
+                      helperText="Last Name"
+                      margin="normal"
                       onChange={e => {
                         this.handleChange({ lastName: e.target.value });
                       }}
                     />{" "}
                   </p>
                   <p>
-                    E-mail:{" "}
-                    <input
+                    <TextField
                       id="email"
                       value={this.state.email}
+                      helperText="E-mail"
+                      margin="normal"
                       onChange={e => {
                         this.handleChange({ email: e.target.value });
                       }}
-                    />{" "}
+                    />
                   </p>
-                  <button onClick={e => this.handleSubmit(e)}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={e => this.handleSubmit(e)}
+                  >
                     Edit profile
-                  </button>
+                  </Button>
+                  <Button onClick={() => history.push("/home")}>Back</Button>
                 </form>
               </CardContent>
             </Card>

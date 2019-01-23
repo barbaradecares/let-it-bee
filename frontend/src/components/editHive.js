@@ -83,8 +83,7 @@ export default class editHive extends React.Component {
                 <form>
                   {" "}
                   <TextField
-                    variant="outlined"
-                    // label="Hive's name"
+                    helperText="Hive's name"
                     value={this.state.name}
                     id="name"
                     onChange={e => this.handleNameChange(e.target.value)}
@@ -106,7 +105,7 @@ export default class editHive extends React.Component {
                       <div>
                         <br />
                         <TextField
-                          variant="outlined"
+                          helperText="Hive's location"
                           // label="Hive's name"
                           {...getInputProps({
                             placeholder: "Search Places ...",
@@ -152,6 +151,7 @@ export default class editHive extends React.Component {
                   >
                     Edit hive
                   </Button>
+                  <Button onClick={() => history.push("/home")}>Back</Button>
                 </form>
               </CardContent>
             </Card>
