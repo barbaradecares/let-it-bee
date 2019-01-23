@@ -2,7 +2,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import React from "react";
 import history from "../history";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
@@ -15,12 +15,16 @@ export default class Instructions extends React.Component {
           <Grid item xs={6}>
             <Card>
               <CardContent>
-                <h3>Congratulations on your new acquisition!</h3>
+                <Typography variant="h4">
+                  Congratulations on your new acquisition!
+                </Typography>
                 <form onSubmit={() => history.push("/hive/new/form")}>
-                  <p>
-                    Enter your Let it bee kit id: <br />
-                    <TextField color="primary" />
-                  </p>
+                  <br /> <br />
+                  <Typography variant="h5">
+                    Enter your Let it bee kit id:{" "}
+                  </Typography>
+                  <br />
+                  <TextField color="primary" />
                   <Button variant="contained" color="primary" type={"submit"}>
                     Submit
                   </Button>

@@ -5,6 +5,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { Typography } from "@material-ui/core";
 export default class editProfile extends Component {
   constructor(props) {
     super(props);
@@ -58,7 +59,7 @@ export default class editProfile extends Component {
           <Grid item xs={6}>
             <Card>
               <CardContent>
-                <h1>Edit profile</h1>
+                <Typography variant="h3">Edit profile</Typography>
                 <form>
                   <p>
                     <TextField

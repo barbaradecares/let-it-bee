@@ -7,6 +7,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
+import { Typography } from "@material-ui/core";
 export default class hiveCard extends Component {
   constructor() {
     super();
@@ -47,15 +48,18 @@ export default class hiveCard extends Component {
                 style={{ margin: 10, width: 200, height: 200 }}
               />
             </Grid>
-            <p>
-              <b>First name:</b> {this.state.profile.firstName}
-            </p>
-            <p>
-              <b>Last name:</b> {this.state.profile.lastName}
-            </p>
-            <p>
-              <b> E-mail: </b> {this.state.profile.email}
-            </p>
+            <Typography variant="h7">
+              <p>
+                <b>First name:</b> {this.state.profile.firstName}
+              </p>
+              <p>
+                <b>Last name:</b> {this.state.profile.lastName}
+              </p>
+              <p>
+                <b> E-mail: </b> {this.state.profile.email}
+              </p>
+            </Typography>
+            <br />
             <Button
               variant="contained"
               size="small"

@@ -10,6 +10,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 export default class addHive extends React.Component {
   constructor(props) {
@@ -71,7 +72,8 @@ export default class addHive extends React.Component {
           <Grid item xs={6}>
             <Card>
               <CardContent>
-                <h1>Add a new hive to collection</h1>
+                <Typography variant="h3">Add new hive</Typography>
+                <br /> <br />
                 <div style={{ display: "flex", flexWrap: "wrap" }}>
                   <form>
                     <TextField

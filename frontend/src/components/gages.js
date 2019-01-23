@@ -4,7 +4,7 @@ import { ArcGauge, LinearGauge } from "@progress/kendo-react-gauges";
 import { timingSafeEqual } from "crypto";
 import Thermometer from "react-thermometer-ecotropy";
 import Grid from "@material-ui/core/Grid";
-
+import Typography from "@material-ui/core/Typography";
 const socket = io("http://10.185.5.228:8000"); //check for ip changes
 
 export default class ArcGaugeComponent extends Component {
@@ -62,7 +62,8 @@ export default class ArcGaugeComponent extends Component {
               size="large"
               height="300"
             />
-            <h3>Temperature</h3>
+            <br />
+            <Typography variant="h5">Temperature</Typography>
           </Grid>
           <Grid item xs={5} alignContent="center">
             <Thermometer
@@ -73,7 +74,8 @@ export default class ArcGaugeComponent extends Component {
               size="large"
               height="300"
             />
-            <h3>Humidity</h3>
+            <br />
+            <Typography variant="h5">Humidity</Typography>
           </Grid>
         </Grid>
         <br />

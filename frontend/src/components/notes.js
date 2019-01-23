@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { Typography } from "@material-ui/core";
 
 export default class Notes extends Component {
   constructor(props) {
@@ -126,7 +127,7 @@ export default class Notes extends Component {
           <Grid item xs={6}>
             <Card>
               <CardContent>
-                <h3>Notes</h3>
+                <Typography variant="h4">Notes</Typography>
 
                 <div>
                   <form>
@@ -167,13 +168,17 @@ export default class Notes extends Component {
                       return (
                         <Card>
                           <CardContent>
-                            {record.notes}
-                            <div style={{ textAlign: "right" }}>
-                              {formatedString}
-                              <Button onClick={() => this.deleteRecord(record)}>
-                                <DeleteIcon />
-                              </Button>
-                            </div>
+                            <Typography>
+                              {record.notes}
+                              <div style={{ textAlign: "right" }}>
+                                {formatedString}
+                                <Button
+                                  onClick={() => this.deleteRecord(record)}
+                                >
+                                  <DeleteIcon />
+                                </Button>
+                              </div>
+                            </Typography>
                           </CardContent>
                         </Card>
                       );

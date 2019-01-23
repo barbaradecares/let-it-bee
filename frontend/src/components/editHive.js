@@ -9,7 +9,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-
+import Typography from "@material-ui/core/Typography";
 export default class editHive extends React.Component {
   constructor(props) {
     super(props);
@@ -79,7 +79,7 @@ export default class editHive extends React.Component {
           <Grid item xs={6}>
             <Card>
               <CardContent>
-                <h1>Edit hive</h1>
+                <Typography variant="h3">Edit hive</Typography> <br /> <br />
                 <form>
                   {" "}
                   <TextField

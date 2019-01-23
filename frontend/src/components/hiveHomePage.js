@@ -3,7 +3,7 @@ import ArcGaugeComponent from "./gages";
 import history from "../history";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 
 export default class HiveHomePage extends Component {
@@ -47,12 +47,16 @@ export default class HiveHomePage extends Component {
           <Grid item xs={6}>
             <Card>
               <CardContent>
-                <h3>Overview</h3>
-                <h4>Live data from {this.state.hive.name}</h4>
-                <h5>
-                  {this.state.hive.location}: {this.state.forecast.summary},{" "}
-                  {this.state.forecast.temp}
-                </h5>
+                <Typography variant="h4">
+                  Live data from {this.state.hive.name}
+                </Typography>
+                <br />
+                <Typography variant="h5">
+                  <b>{this.state.hive.location}</b>:{" "}
+                  {this.state.forecast.summary}, {this.state.forecast.temp} °F
+                </Typography>
+                <br />
+                <br />
                 <ArcGaugeComponent />
                 <div>
                   <Button
@@ -66,6 +70,7 @@ export default class HiveHomePage extends Component {
                   >
                     Data
                   </Button>
+                  {"    "}
                   <Button
                     variant="contained"
                     color="primary"
@@ -75,6 +80,7 @@ export default class HiveHomePage extends Component {
                   >
                     Tips
                   </Button>
+                  {"    "}
                   <Button
                     variant="contained"
                     color="primary"
@@ -84,6 +90,7 @@ export default class HiveHomePage extends Component {
                   >
                     Notes
                   </Button>
+                  {"    "}
                   <Button onClick={() => this.deleteHive()}>
                     Delete this hive
                   </Button>
