@@ -19,7 +19,7 @@ export default class Instructions extends React.Component {
                 <form onSubmit={() => history.push("/hive/new/form")}>
                   <p>
                     Enter your Let it bee kit id: <br />
-                    <TextField variant="outlined" color="primary" />
+                    <TextField color="primary" />
                   </p>
                   <Button variant="contained" color="primary" type={"submit"}>
                     Submit

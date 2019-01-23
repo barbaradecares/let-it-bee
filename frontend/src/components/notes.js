@@ -131,13 +131,17 @@ export default class Notes extends Component {
                 <div>
                   <form>
                     <TextField
+                      fullWidth
                       multiline
                       label="Add note"
-                      variant="outlined"
+                      // variant="outlined"
                       onChange={e => this.handleChange(e)}
                       value={this.state.notes}
                     />
+                    <br />
+                    <br />{" "}
                     <Button
+                      margin="dense"
                       variant="contained"
                       color="primary"
                       onClick={e => this.handleSubmit(e)}
@@ -145,6 +149,7 @@ export default class Notes extends Component {
                       Submit
                     </Button>
                   </form>
+                  <br />
                 </div>
                 <div id="notes">
                   {this.state.records.map(record => {

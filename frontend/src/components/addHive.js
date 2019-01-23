@@ -75,7 +75,6 @@ export default class addHive extends React.Component {
                 <div style={{ display: "flex", flexWrap: "wrap" }}>
                   <form>
                     <TextField
-                      variant="outlined"
                       label="Hive's name"
                       id="name"
                       onChange={e => this.handleNameChange(e.target.value)}
@@ -96,7 +95,6 @@ export default class addHive extends React.Component {
 
                           <TextField
                             label="Hive's location"
-                            variant="outlined"
                             {...getInputProps({
                               placeholder: "Search Places ...",
                               className: "location-search-input"
