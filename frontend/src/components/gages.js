@@ -6,7 +6,7 @@ import Thermometer from "react-thermometer-ecotropy";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
-const socket = io("http://10.185.5.228:8000"); //check for ip changes
+const socket = io("http://10.185.1.133:8000"); //check for ip changes
 
 export default class ArcGaugeComponent extends Component {
   constructor() {

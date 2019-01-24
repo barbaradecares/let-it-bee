@@ -65,24 +65,24 @@ export default class Home extends Component {
               alignItems="center"
               style={{ minHeight: "100vh" }}
             >
-              <Grid item xs={3} alignItems="center">
-                <MyProfile />
-              </Grid>
-              <Grid item xs={6}>
-                <Card>
-                  <CardContent>
-                    <h4>We couldn't find any hive linked to this acount.</h4>
-                    <Button
-                      variant="contained"
-                      size="small"
-                      color="primary"
-                      onClick={() => history.push("/hive/new")}
-                    >
-                      Add hive
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Grid>
+              {/* <Grid item xs={3} alignItems="center"> */}
+              <MyProfile />
+              {/* </Grid> */}
+              {/* <Grid item xs={6}> */}
+              <Card>
+                <CardContent>
+                  <h4>We couldn't find any hive linked to this acount.</h4>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    color="primary"
+                    onClick={() => history.push("/hive/new")}
+                  >
+                    Add hive
+                  </Button>
+                </CardContent>
+              </Card>
+              {/* </Grid> */}
             </Grid>
           </div>
         );
@@ -97,21 +97,21 @@ export default class Home extends Component {
               alignItems="center"
               style={{ minHeight: "100vh" }}
             >
-              <Grid item xs={3}>
-                <MyProfile />
-              </Grid>
-              <Grid item xs={8}>
-                {/* <Card>
+              {/* <Grid item xs={3}> */}
+              <MyProfile />
+              {/* </Grid> */}
+              {/* <Grid item xs={8}> */}
+              {/* <Card>
                   <CardContent>
                     <h3>My hives</h3> */}
-                <Grid container direction="row" justify="center">
-                  {this.state.hives.map(hive => {
-                    return <HiveCard hive={hive} />;
-                  })}
-                </Grid>
-                {/* </CardContent>
+              {/* <Grid container direction="row" justify="center"> */}
+              {this.state.hives.map(hive => {
+                return <HiveCard hive={hive} />;
+              })}
+              {/* </Grid> */}
+              {/* </CardContent>
                 </Card> */}
-              </Grid>
+              {/* </Grid> */}
             </Grid>
           </div>
         );

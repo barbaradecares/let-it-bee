@@ -20,7 +20,7 @@ const util = require("util");
 application.use(Express.static(path.join(__dirname, "/app")));
 application.use("/vendor", Express.static(__dirname + "/node_modules/"));
 
-const currentIP = "192.168.1.80"; //check ip address ipconfig getifaddr en0
+const currentIP = "10.185.1.127"; //check ip address ipconfig getifaddr en0
 let hiveId = "5c4757ed2aafb104181aebaf"; //it exists
 let hive;
 let weather = {};
@@ -37,7 +37,7 @@ const fetchHiveInfo = () => {
   return new Promise((resolve, reject) => {
     request(clientServerOptions, function(err, response) {
       // console.log(err, response);
-      console.log(response);
+      // console.log(response);
       if (response.body) {
         hive = JSON.parse(response.body);
       } else console.log("hiii");
@@ -157,7 +157,7 @@ board.on("ready", () => {
 
   var port = 8000;
   server.listen(port, () => {
-    //console.log(`http://${os.networkInterfaces().wlan0[0].address}:${port}`);
+    console.log(`http://${os.networkInterfaces().wlan0[0].address}:${port}`);
     //get error: "Cannot read property '0' of undefined" when this line is uncomented
   });
 

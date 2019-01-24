@@ -175,7 +175,6 @@ function MainPhoto(props) {
                 justify="center"
               >
                 <Grid item xs={4}>
-                  <br />
                   <div
                     style={{
                       backgroundColor: "white",
@@ -191,7 +190,6 @@ function MainPhoto(props) {
                       color: "rgb(101,96,0)"
                     }}
                   >
-                    <br />
                     <br />
                     <br />
                     <br />
