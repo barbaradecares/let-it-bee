@@ -19,7 +19,7 @@ import AddHive from "./components/addHive";
 import Intructions from "./components/instructions";
 const theme = createMuiTheme({
   palette: {
-    primary: { main: "#FDD835" },
+    primary: { main: "#FFE16E" },
     secondary: { main: "#212121" },
     type: "light"
   }

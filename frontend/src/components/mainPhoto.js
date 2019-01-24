@@ -167,18 +167,86 @@ function MainPhoto(props) {
             }}
           >
             <div style={{ position: relative, zIndex: 1 }}>
-              <Grid container alignItems="center" style={{ minHeight: "60vh" }}>
-                <Grid item xs={4} />
+              <Grid
+                container
+                alignItems="center"
+                style={{ minHeight: "63vh" }}
+                spacing={16}
+                justify="center"
+              >
                 <Grid item xs={4}>
-                  <Card style={{ borderRadius: 100 }}>
+                  <br />
+                  <div
+                    style={{
+                      backgroundColor: "white",
+                      width: "450px",
+                      height: "450px",
+                      borderRadius: "225px",
+                      textAlign: "center",
+                      boxSizing: "border-box",
+                      boxShadow: "0px 0px 0px 2px rgb(101,96,0) inset",
+                      padding: "50px",
+                      border: " 10px solid white",
+                      margin: "10px",
+                      color: "rgb(101,96,0)"
+                    }}
+                  >
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <Typography color="inherit">
+                      LetItBee is an exciting new tool for professional or
+                      hobbyists Beekeepers to remotely track vital information
+                      from multiple beehives in multiple places, all from their
+                      phone or computer. Using calibrated sensors an apiarist
+                      can track hive humidity, temperature and local weather.
+                      LetItBee allows its users to have a powerful advantage in
+                      monitoring hive health and seasonal development, spotting
+                      potentially devastating problems before they happen.
+                    </Typography>
+                  </div>
+                </Grid>
+                {/* <Grid item xs={3}>
+                  <Card
+                    style={{
+                      margin: "20px",
+                      height: "400px"
+                    }}
+                  >
                     <CardContent align="center">
-                      <h1>hi</h1>
-                      <h1>teeeeest</h1>
-                      <h1>teeeeest</h1>
-                      <h1>teeeeest</h1>
+                      <Typography variant="h6">
+                        LetItBee is a beehive monitor that will allow hobbyists
+                        and professional beekeepers to keep track of their
+                        honeybees’ health and their hives status.
+                      </Typography>
                     </CardContent>
                   </Card>
                 </Grid>
+                <Grid item xs={3}>
+                  <Card style={{ margin: "20px", height: "400px" }}>
+                    <CardContent align="center">
+                      <Typography variant="h6">
+                        Exciting new tool for Beekeepers to remotely track vital
+                        information from multiple beehives in multiple places,
+                        all from their phone or computer. Using calibrated
+                        sensors an apiarist can track hive humidity, temperature
+                        and local weather.
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={3}>
+                  <Card style={{ margin: "20px", height: "400px" }}>
+                    <CardContent align="center">
+                      <Typography variant="h6">
+                        Powerful advantage in monitoring hive health and
+                        seasonal development, and spotting potentially
+                        devastating problems before they happen.
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid> */}
               </Grid>
             </div>
           </div>

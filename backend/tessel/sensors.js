@@ -20,14 +20,14 @@ const util = require("util");
 application.use(Express.static(path.join(__dirname, "/app")));
 application.use("/vendor", Express.static(__dirname + "/node_modules/"));
 
-const currentIP = "10.185.5.131";
-let hiveId = "5c4259e48facf422819b9068";
+const currentIP = "192.168.1.80"; //check ip address ipconfig getifaddr en0
+let hiveId = "5c4757ed2aafb104181aebaf"; //it exists
 let hive;
 let weather = {};
 
 const fetchHiveInfo = () => {
   var clientServerOptions = {
-    uri: `http://${currentIP}:5000/api/hive/${hiveId}`, //check ip address ipconfig getifaddr en0
+    uri: `http://${currentIP}:5000/api/hive/${hiveId}`,
     body: JSON.stringify({}),
     method: "GET",
     headers: {
@@ -37,8 +37,10 @@ const fetchHiveInfo = () => {
   return new Promise((resolve, reject) => {
     request(clientServerOptions, function(err, response) {
       // console.log(err, response);
-      hive = JSON.parse(response.body);
-
+      console.log(response);
+      if (response.body) {
+        hive = JSON.parse(response.body);
+      } else console.log("hiii");
       if (err) {
         reject(err);
       }
@@ -155,7 +157,8 @@ board.on("ready", () => {
 
   var port = 8000;
   server.listen(port, () => {
-    console.log(`http://${os.networkInterfaces().wlan0[0].address}:${port}`);
+    //console.log(`http://${os.networkInterfaces().wlan0[0].address}:${port}`);
+    //get error: "Cannot read property '0' of undefined" when this line is uncomented
   });
 
   process.on("SIGINT", () => {
